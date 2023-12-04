@@ -16,7 +16,7 @@ fun main() {
                 "원하시는 메뉴의 번호를 입력해주세요."
     )
 
-    var selectMenu: String? = readLine()
+    val selectMenu: String? = readLine()
     when (selectMenu) {
         "1" -> {
             println("커피를 선택하셨습니다.") //println가 아니라 클래스 호출을 해야할 듯
@@ -59,7 +59,7 @@ fun coffeeManu() {
             "4.  라메리카노      | 커피넘버 포 고품질 원두로 로스팅한 커피\n" +
             "5.  마메리카노      | 커피넘버 파이브 고품질 원두로 로스팅한 커피\n\n" +
             "0.  뒤로가기\n")
-    var selectCoffee: String? = readLine()
+    val selectCoffee: String? = readLine()
     when (selectCoffee) {
         "1" -> println("${coffee1.name} 준비해 드리겠습니다. ${coffee1.price}원 이고, ${coffee1.time}분 정도 소요됩니다.")
         "2" -> println("${coffee2.name} 준비해 드리겠습니다 ${coffee2.price}원 이고, ${coffee2.time}분 정도 소요됩니다.")
@@ -93,7 +93,7 @@ fun teaManu() {
                 "4.  반팔티         | 티넘버 포 세계최초 특별한 티\n" +
                 "5.  로열티         | 티넘버 파이브 세계최초 특별한 티\n\n" +
                 "0.  뒤로가기\n")
-    var selectTea: String? = readLine()
+    val selectTea: String? = readLine()
     when (selectTea) {
         "1" -> println("${tea1.name} 준비해 드리겠습니다. ${tea1.price}원 이고, ${tea1.time}분 정도 소요됩니다.")
         "2" -> println("${tea2.name} 준비해 드리겠습니다. ${tea2.price}원 이고, ${tea2.time}분 정도 소요됩니다.")
@@ -127,7 +127,7 @@ fun adeJuiceManu() {
                 "4.  반팔티         | 티넘버 포 세계최초 특별한 티\n" +
                 "5.  로열티         | 티넘버 파이브 세계최초 특별한 티\n\n" +
                 "0.  뒤로가기\n")
-    var selectAdeJuice: String? = readLine()
+    val selectAdeJuice: String? = readLine()
     when (selectAdeJuice) {
         "1" -> println("${adeJuic1.name} 준비해 드리겠습니다. ${adeJuic1.price}원 이고, ${adeJuic1.time}분 정도 소요됩니다.")
         "2" -> println("${adeJuic2.name} 준비해 드리겠습니다. ${adeJuic2.price}원 이고, ${adeJuic2.time}분 정도 소요됩니다.")
@@ -161,7 +161,7 @@ fun dessertManu() {
                 "4.  바 움 쿠 헨ㅤ   | 독일 대표 간식\n" +
                 "5.  에그타르트      | 포르투갈 대표 간식\n\n" +
                 "0.  뒤로가기\n")
-    var selectTea: String? = readLine()
+    val selectTea: String? = readLine()
     when (selectTea) {
         "1" -> println("${dessert1.name} 준비해 드리겠습니다. ${dessert1.price}원 이고, ${dessert1.time}분 정도 소요됩니다.")
         "2" -> println("${dessert2.name} 준비해 드리겠습니다. ${dessert2.price}원 이고, ${dessert2.time}분 정도 소요됩니다.")
