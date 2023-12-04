@@ -1,7 +1,7 @@
 package com.example.mgckiosk
 
 // 추상클래스 몰라요, 인터페이스 몰라요
-// 일단 아는 걸로만 작성 해봤어요
+// 일단 아는 걸로만 작성해 봤어요
 
 fun main() {
 
