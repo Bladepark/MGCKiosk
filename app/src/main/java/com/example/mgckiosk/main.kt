@@ -6,4 +6,5 @@ package com.example.mgckiosk
 
 fun main() {
     println("3조 파이팅")
+
 }
