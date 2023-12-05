@@ -1,31 +1,27 @@
 package com.example.mgckiosk
 
-import kotlinx.coroutines.selects.select
-import java.util.Locale.Category
-import java.util.Objects
-
 fun main() {
     println("3조 파이팅")
 
     println("[ 홈페이지 ]")
     println("1. 메뉴 선택")
+
     var num = IllegalArgumentException(1).selectNumber() // 메인 화면으로 이동
     if (num == 1) {
-        var main = MainCategory(0).category()        // 카테고리 화면으로 이동
+        MainCategory(0).category()        // 카테고리 화면으로 이동
     }
 
 }
 
 // 카테고리 선택 추상 클래스
-abstract class SelectCategory(category: Int) {
+abstract class SelectCategory {
     abstract var category: Int
     abstract fun category()
 }
 
 // 메인 카테고리 선택 실행 클래스
 
-class MainCategory(category: Int) : SelectCategory(category) {
-    override var category: Int = category
+class MainCategory(override var category: Int) : SelectCategory() {
     override fun category() {
 
         if (category == -1) {
@@ -48,7 +44,7 @@ class MainCategory(category: Int) : SelectCategory(category) {
 
 // 음료 카테고리 선택 실행 클래스 ===============================================================================
 
-class BeverageCategory(override var category: Int) : SelectCategory(category) {
+class BeverageCategory(override var category: Int) : SelectCategory() {
     override fun category() {
         if (category == -1) {
             category = 0
@@ -70,7 +66,7 @@ class BeverageCategory(override var category: Int) : SelectCategory(category) {
 
 // 음료 카테고리 Hot Ice 선택 클래스
 
-class BeverageSubCategory1(override var category: Int) : SelectCategory(category) {
+class BeverageSubCategory1(override var category: Int) : SelectCategory() {
 
     override fun category() {
         println("[ 커피 ]")
@@ -81,23 +77,13 @@ class BeverageSubCategory1(override var category: Int) : SelectCategory(category
             1 -> {
                 println("[ 뜨거운 커피 상세 메뉴 ]")
                 HotCoffee().item()
-                println("1. 뒤로가기 0. 종료")
-                var option = IllegalArgumentException(1).selectNumber()
-                when (option) {
-                    0 -> BeverageCategory(-1).category()
-                    1 -> BeverageCategory(0).category()
-                }
+                GoBackToBeverageSubCategory1().goBackOrEnd()
             }
 
             2 -> {
                 println("[ 차가운 커피 상세 메뉴 ]")
                 IcedCoffee().item()
-                println("1. 뒤로가기 0. 종료")
-                var option = IllegalArgumentException(1).selectNumber()
-                when (option) {
-                    0 -> BeverageCategory(-1).category()
-                    1 -> BeverageCategory(0).category()
-                }
+                GoBackToBeverageSubCategory1().goBackOrEnd()
             }
 
             3 -> BeverageCategory(0).category()
@@ -106,7 +92,7 @@ class BeverageSubCategory1(override var category: Int) : SelectCategory(category
     }
 }
 
-class BeverageSubCategory2(override var category: Int) : SelectCategory(category) {
+class BeverageSubCategory2(override var category: Int) : SelectCategory() {
     override fun category() {
         println("[ 티 ]")
         println("1. Hot 2. Iced 3. 뒤로가기 0. 종료")
@@ -116,23 +102,13 @@ class BeverageSubCategory2(override var category: Int) : SelectCategory(category
             1 -> {
                 println("[ 뜨거운 티 상세 메뉴 ]")
                 HotTea().item()
-                println("1. 뒤로가기 0. 종료")
-                var option = IllegalArgumentException(1).selectNumber()
-                when (option) {
-                    0 -> BeverageCategory(-1).category()
-                    1 -> BeverageCategory(0).category()
-                }
+                GoBackToBeverageSubCategory2().goBackOrEnd()
             }
 
             2 -> {
                 println("[ 차가운 티 상세 메뉴 ]")
                 IcedTea().item()
-                println("1. 뒤로가기 0. 종료")
-                var option = IllegalArgumentException(1).selectNumber()
-                when (option) {
-                    0 -> BeverageCategory(-1).category()
-                    1 -> BeverageCategory(0).category()
-                }
+                GoBackToBeverageSubCategory2().goBackOrEnd()
             }
 
             3 -> BeverageCategory(0).category()
@@ -141,35 +117,26 @@ class BeverageSubCategory2(override var category: Int) : SelectCategory(category
     }
 }
 
-class BeverageSubCategory3(override var category: Int) : SelectCategory(category) {
+class BeverageSubCategory3(override var category: Int) : SelectCategory() {
     override fun category() {
-        println("[ 에이드/주스 ]")
+        println("[ 에이드/주스 상세 메뉴 ]")
         AdeJuice().item()
-        println("1. 뒤로가기 0. 종료")
-        var option = IllegalArgumentException(1).selectNumber()
-        when (option) {
-            0 -> BeverageCategory(-1).category()
-            1 -> BeverageCategory(0).category()
-        }
+        GoBackToBeverage().goBackOrEnd()
     }
 
 }
 
-class BeverageSubCategory4(override var category: Int) : SelectCategory(category) {
+class BeverageSubCategory4(override var category: Int) : SelectCategory() {
     override fun category() {
-        println("[ 스무디/프라페 ]")
+        println("[ 스무디/프라페 상세 메뉴 ]")
         SmoothieFrappe().item()
-        println("1. 뒤로가기 0. 종료")
-        var option = IllegalArgumentException(1).selectNumber()
-        when (option) {
-            0 -> BeverageCategory(-1).category()
-            1 -> BeverageCategory(0).category()
-        }
+        GoBackToBeverage().goBackOrEnd()
     }
+
 }
 
 // 베이커리 카테고리 화면 =================================================================================
-class BakeryCategory(override var category: Int) : SelectCategory(category) {
+class BakeryCategory(override var category: Int) : SelectCategory() {
     override fun category() {
         if (category == -1) {
             category = 0
@@ -188,48 +155,34 @@ class BakeryCategory(override var category: Int) : SelectCategory(category) {
     }
 }
 
-class BakerySubCategory1(override var category: Int) : SelectCategory(category) {
+class BakerySubCategory1(override var category: Int) : SelectCategory() {
     override fun category() {
-        println("[ 빵 ]")
-        println("1. 뒤로가기 0. 종료")
+        println("[ 빵 상세 메뉴 ]")
         Bread().item()
-        category = IllegalArgumentException(1).selectNumber()
-        when (category) {
-            0 -> BeverageCategory(-1).category()
-            1 -> BeverageCategory(0).category()
-        }
+        GoBackToBakery().goBackOrEnd()
     }
 }
 
-class BakerySubCategory2(override var category: Int) : SelectCategory(category) {
+class BakerySubCategory2(override var category: Int) : SelectCategory() {
     override fun category() {
-        println("[ 쿠키 & 마카롱 ]")
-        println("1. 뒤로가기 0. 종료")
+        println("[ 쿠키 & 마카롱 상세 메뉴 ]")
         CookieMacaron().item()
-        category = IllegalArgumentException(1).selectNumber()
-        when (category) {
-            0 -> BakeryCategory(-1).category()
-            1 -> BakeryCategory(0).category()
-        }
+        GoBackToBakery().goBackOrEnd()
     }
 }
 
-class BakerySubCategory3(override var category: Int) : SelectCategory(category) {
+
+class BakerySubCategory3(override var category: Int) : SelectCategory() {
     override fun category() {
-        println("[ 케이크 ]")
-        println("1. 뒤로가기 0. 종료")
+        println("[ 케이크 상세 메뉴 ]")
         Cake().item()
-        category = IllegalArgumentException(3).selectNumber()
-        when (category) {
-            0 -> BakeryCategory(-1).category()
-            1 -> BakeryCategory(0).category()
-        }
+        GoBackToBakery().goBackOrEnd()
     }
 }
 
 
 // MD 상품 카테고리 화면 =================================================================================
-class ProductCategory(override var category: Int) : SelectCategory(category) {
+class ProductCategory(override var category: Int) : SelectCategory() {
     override fun category() {
         if (category == -1) {
             category = 6
@@ -249,51 +202,36 @@ class ProductCategory(override var category: Int) : SelectCategory(category) {
     }
 }
 
-class ProductSubCategory1(override var category: Int) : SelectCategory(category) {
+class ProductSubCategory1(override var category: Int) : SelectCategory() {
     override fun category() {
-        println("[ 머그컵 ]")
-        println("1.뒤로가기 0. 종료")
+        println("[ 머그컵 상세 메뉴 ]")
         MugCup().item()
-        var option = IllegalArgumentException(4).selectNumber()
-        when (option) {
-            0 -> ProductCategory(-1).category()
-            1 -> ProductCategory(0).category()
-        }
+        GoBackToProduct().goBackOrEnd()
     }
 }
 
-class ProductSubCategory2(override var category: Int) : SelectCategory(category) {
+class ProductSubCategory2(override var category: Int) : SelectCategory() {
     override fun category() {
-        println("[ 텀블러 ]")
-        println("1. 뒤로가기 0. 종료")
+        println("[ 텀블러 상세 메뉴 ]")
         Tumbler().item()
-        var option = IllegalArgumentException(4).selectNumber()
-        when (option) {
-            0 -> ProductCategory(-1).category()
-            1 -> ProductCategory(0).category()
-        }
+        GoBackToProduct().goBackOrEnd()
     }
 }
 
-class ProductSubCategory3(override var category: Int) : SelectCategory(category) {
+class ProductSubCategory3(override var category: Int) : SelectCategory() {
     override fun category() {
-        println("[ 스틱커피 ]")
+        println("[ 스틱커피 상세 메뉴 ]")
         StickCoffee().item()
-        println("1. 뒤로가기 0. 종료")
-        var option = IllegalArgumentException(2).selectNumber()
-        when (option) {
-            0 -> ProductCategory(-1).category()
-            1 -> ProductCategory(0).category()
-        }
+        GoBackToProduct().goBackOrEnd()
     }
 
 }
 
-class ProductSubCategory4(override var category: Int) : SelectCategory(category) {
+class ProductSubCategory4(override var category: Int) : SelectCategory() {
     override fun category() {
-        println("[ 티상품 ]")
+        println("[ 티상품 상세 메뉴 ]")
         TeaProduct().item()
-
+        GoBackToProduct().goBackOrEnd()
     }
 }
 
@@ -315,8 +253,65 @@ class IllegalArgumentException(optionNumber: Int) : SelectNumber(optionNumber) {
     }
 }
 
-// 뒤로가기 & 프로그램 종료하기 함수
+// 뒤로가기 & 프로그램 종료하기 인터페이스 ===============================================================
+interface GoBackOrEnd {
+    fun goBackOrEnd()
+}
 
+class GoBackToBeverage : GoBackOrEnd {
+    override fun goBackOrEnd() {
+        println("1.뒤로가기 0. 종료")
+        var option = IllegalArgumentException(2).selectNumber()
+        when (option) {
+            0 -> BeverageCategory(-1).category()
+            1 -> BeverageCategory(0).category()
+        }
+    }
+}
+
+class GoBackToBeverageSubCategory1 : GoBackOrEnd {
+    override fun goBackOrEnd() {
+        println("1.뒤로가기 0. 종료")
+        var option = IllegalArgumentException(2).selectNumber()
+        when (option) {
+            0 -> BeverageSubCategory1(-1).category()
+            1 -> BeverageSubCategory1(0).category()
+        }
+    }
+}
+
+class GoBackToBeverageSubCategory2 : GoBackOrEnd {
+    override fun goBackOrEnd() {
+        println("1.뒤로가기 0. 종료")
+        var option = IllegalArgumentException(2).selectNumber()
+        when (option) {
+            0 -> BeverageSubCategory2(-1).category()
+            1 -> BeverageSubCategory2(0).category()
+        }
+    }
+}
+
+class GoBackToBakery : GoBackOrEnd {
+    override fun goBackOrEnd() {
+        println("1.뒤로가기 0. 종료")
+        var option = IllegalArgumentException(2).selectNumber()
+        when (option) {
+            0 -> BakeryCategory(-1).category()
+            1 -> BakeryCategory(0).category()
+        }
+    }
+}
+
+class GoBackToProduct : GoBackOrEnd {
+    override fun goBackOrEnd() {
+        println("1.뒤로가기 0. 종료")
+        var option = IllegalArgumentException(2).selectNumber()
+        when (option) {
+            0 -> ProductCategory(-1).category()
+            1 -> ProductCategory(0).category()
+        }
+    }
+}
 
 // 상세메뉴 추상 클래스 ==============================================================================
 
