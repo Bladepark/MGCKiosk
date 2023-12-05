@@ -68,8 +68,14 @@ fun main() {
                 println("15.콜드브루라떼")
                 println("16.콜드브루오리지널")
                 println("0. 뒤로가기")
-                var choice2= readlnOrNull()
-                if(choice2.toInt()>=17){
+                var choice2= readln()
+                while(choice2.isNotEmpty()){
+                    if(choice2.toInt() >= 17) {
+                        println("올바른 값을 입력해주세요.")
+                        var choice2= readln()
+                    }
+
+
 
                 }
                 menu.selectMenu(coffees[choice2.toInt()-1][0],coffees[choice2.toInt()-1][1])
