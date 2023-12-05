@@ -11,6 +11,7 @@ fun main() {
         MainCategory(0).category()        // 카테고리 화면으로 이동
     }
 
+    println("프로그램을 종료합니다.")
 }
 
 // 카테고리 선택 추상 클래스
