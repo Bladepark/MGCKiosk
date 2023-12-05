@@ -59,21 +59,43 @@ fun beverage() {
 // Smoothie&Frappe -> Only Ice 쿠키프라페 딸기요거트스무디 녹차프라페 망고요거트스무디 플레인요거트스무디 딸기퐁크러쉬 초코허니퐁크러쉬
 fun coffee() {
     println(
-        "[Beverage MENU]\n" +
-        "1. 에스프레소          | 메가커피만의 깊고 부드러운 커피 맛의 비밀\n" +
-        "2. 아메리카노             | 향긋함으로 산뜻하게 마음을 위로하는 차\n" +
-        "3. Ade&Juice       | 상콤&달콤&새콤 3콤보 에이드&주스\n" +
-        "4. 왕할메가커피      | 과일과 토핑의 콜라보 부드러운데 찐한 스무디&프라\n" +
-        "5. 카라멜마끼아또 | 과일과 토핑의 콜라보 부드러운데 찐한 스무디&프라\n" +
+        "[Coffee MENU]\n" +
+        "1. 에스프레소        | 메가MGC커피 원두의 향미를 온전히 즐길 수 있는 에스프레소\n" +
+        "2. 아메리카노        | 메가MGC커피 블렌드 원두로 추출한 에스프레소에 물을 더해, 풍부한 바디감을 느낄 수 있는 스탠다드 커피\n" +
+        "3. 왕할메가커피      | 우리 할머니께서 즐겨드시던 달달한 믹스 커피 스타일로 만든 메가MGC커피만의 메가사이즈 커피 음료\n" +
+        "4. 카라멜마끼아또     | 폼 밀크 속에 진한 에스프레소와 달콤한 카라멜을 가미해 부드럽게 즐기는 커피\n" +
+        "5. 바닐라라떼        | 바닐라의 짙은 향과 풍부한 폼 밀크의 조화가 인상적인 달콤한 라떼\n" +
         "6. 뒤로가기"
     )
     var menuNumber = readLine()!!.toInt()
     when(menuNumber) {
-        1 -> coffee()
-        2 -> tea()
-        3 -> adeJuice()
-        4 -> smoothieFrappe()
-        5 -> back()
+        1 -> espresso()
+        2 -> americano()
+        3 -> bigMixCoffee()
+        4 -> caramelMacchiato()
+        5 -> vanillaLatte()
+        6 -> back()
+    }
+}
+// Tea   -> 복숭아아이스티[Ice] 녹차[Hot/Ice] 얼그레이[Hot/Ice] 캐모마일[Hot/Ice] 허니자몽블랙티[Hot/Ice] 사과유자차[Hot]
+fun tea() {
+    println(
+        "[Tea MENU]\n" +
+        "1. 녹차         | 고소한 감칠맛과 부드러운 목넘김으로 산뜻하게 마음을 위로하는 국내산 녹차\n" +
+        "2. 얼그레이      | 홍차 특유의 풍부한 플레이버를 만끽할 수 있는 허브티\n" +
+        "3. 캐모마일      | 마음을 진정 시켜주는 산뜻한 풀내음을 느낄 수 있는 허브티\n" +
+        "4. 사과유자차    | 애플티의 향긋함과 유자청의 상큼달콤함을 한컵에 담아낸 과일티\n" +
+        "5. 허니자몽블랙티 | 달콤한 꿀청에 재운 자몽에 홍차의 부드러움을 어우른 상큼한 과일티\n" +
+        "6. 뒤로가기"
+    )
+    var menuNumber = readLine()!!.toInt()
+    when(menuNumber) {
+        1 -> espresso()
+        2 -> americano()
+        3 -> bigMixCoffee()
+        4 -> caramelMacchiato()
+        5 -> vanillaLatte()
+        6 -> back()
     }
 }
 
