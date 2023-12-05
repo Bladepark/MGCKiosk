@@ -1,11 +1,11 @@
 package com.example.mgckiosk
 
-class Coffee () {
+class Coffee constructor(name: String, price: Int, explanation: String) {
 
-    private val name:String = ""
-    private val price:Int = 0
-
+    var name:String = name
+    var price:Int = price
+    var explanation:String = explanation
     fun displayInfo(){
-        println("${name} ${price}")
+        println("${name} ${price} ${explanation} coffee 클래스에서 생성됨")
     }
 }

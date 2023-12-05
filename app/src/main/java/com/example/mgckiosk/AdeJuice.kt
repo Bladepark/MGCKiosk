@@ -1,8 +1,9 @@
 package com.example.mgckiosk
 
 class AdeJuice {
-    var name = ""
-    var price = 0
+    private val name:String = ""
+    private val price:Int = 0
+    private val explanation:String=""
     fun displayInfo(){
 
     }
