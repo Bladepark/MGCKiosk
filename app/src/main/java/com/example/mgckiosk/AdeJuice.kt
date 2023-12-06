@@ -1,10 +1,11 @@
 package com.example.mgckiosk
 
-class AdeJuice {
-    private val name:String = ""
-    private val price:Int = 0
-    private val explanation:String=""
-    fun displayInfo(){
-
+class AdeJuice (name: String,
+                price: Int,
+                explanation: String,
+                var ice:String,
+                var soda:String) : GoodsCommon(name, price, explanation) {
+    override fun displayInfo(){
+        println("${name} | ${price}  | 옵션- ${ice}, ${soda}")
     }
 }

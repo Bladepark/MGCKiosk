@@ -67,18 +67,24 @@ fun main() {
         ,arrayOf("티라미수 케익",2100,"대충 맛과 향이 좋다는 설명")
         ,arrayOf("허니브레드",3000,"대충 맛과 향이 좋다는 설명")
     )
-    var orderList = ArrayList<Drink>()
+    val smoothieFrappe = arrayOf(arrayOf("플레인요거트스무디",1500,"대충 맛과 향이 좋다는 설명")
+        ,arrayOf("슈크림허니퐁크러쉬",2500,"대충 맛과 향이 좋다는 설명")
+        ,arrayOf("망고요거트스무디",2500,"대충 맛과 향이 좋다는 설명")
+        ,arrayOf("딸기퐁크러쉬",2000,"대충 맛과 향이 좋다는 설명")
+    )
+    val mds = arrayOf(arrayOf("MGC 텀블러(웜그레이)",1500,"뛰어난 보온보냉력으로 하루종일 그대로, MGC 데일리 텀블러")
+        ,arrayOf("메가 엠지씨 스틱 디카페인 아메리카노",2500,"물의 삼투압을 이용한 독일 워터 프로세스 방식으로 카페인을 줄이고,브라질 원두 특유의 산미와 달콤함, 바디감은 고스란히 담아 조화로운 맛을 느낄 수 있는 아메리카노")
+        ,arrayOf("텀블러(실버)",2500,"기능성과 비주얼을 다잡은 메가MGC커피 텀블러.")
+        ,arrayOf("머그(블랙)",2000,"일상 어디서든 활용하기 좋은 메가MGC커피 대용량 머그컵.")
+    )
+    var orderList = ArrayList<GoodsCommon>()
     println("고객이 가진 돈을 입력해주세요")
-    var coin = isNumber()
-    var cust = Customer(coin)
+    val coin = isNumber()
+    val cust = Customer(coin)
 
     while (true) {
-        mainView()
-        if(orderList.isNotEmpty()){
-            println("[ 장바구니 ]")
-            println("5. 주문 : 내용 확인 후 주문합니다.")
-            println("6. 취소 : 진행중인 주문을 취소합니다.")
-        }
+        mainView(orderList)
+
 
 //        orderList.forEach{ it->
 //            println(it.name)
@@ -104,10 +110,45 @@ fun main() {
                             continue
                         }
                         in 1..coffees.size -> {
-                            orderList+=selectMenu(
+                            println("카페인 옵션을 선택해주세요. \n1. 고카페인,  2. 보통,  3.디카페인")
+
+                            var decaffOption = isNumber()
+                            var decaff =""
+                            var hotIce =""
+                            var check=true
+                            var check2= true
+                            while(check){
+                                when(decaffOption){
+                                    1 -> {decaff = "고카페인"
+                                        check=false}
+                                    2 -> {decaff = "보통"
+                                        check=false}
+                                    3 ->{decaff = "디카페인"
+                                        check=false}
+                                    else -> println("잘못된 입력입니다..")
+                                }
+                            }
+                            println("핫 or 아이스 중에서 선택해주세요. \n1. 아이스,  2. 핫")
+                            val iceOption = isNumber()
+                            if(iceOption==1) {
+                                hotIce = "아이스"
+                            }else if(iceOption==2){
+                                hotIce = "핫"
+                            }
+                            while(check2){
+                                when(iceOption){
+                                    1 -> {hotIce = "아이스"
+                                        check2=false}
+                                    2 -> {hotIce = "핫"
+                                        check2=false}
+                                    else -> println("잘못된 입력입니다..")
+                                }
+                            }
+                            orderList+=addCoffee(
                                 coffees[choice2-1][0].toString(),
                                 coffees[choice2-1][1].toString().toInt(),
-                                coffees[choice2-1][2].toString())
+                                coffees[choice2-1][2].toString(),
+                                decaff, hotIce)
                             var choice3 = isNumber()
                             if(choice3 == 1){
                                 println("${ coffees[choice2-1][0]}가 장바구니에 추가되었습니다.")
@@ -140,11 +181,11 @@ fun main() {
                             continue
                         }
                         in 1..teas.size -> {
-                            orderList += selectMenu(
+                            orderList += addTea(
                                 teas[choice2-1][0].toString(),
                                 teas[choice2-1][1].toString().toInt(),
                                 teas[choice2-1][2].toString())
-                                var choice3 = readln()
+                            var choice3 = readln()
                             if(choice3 =="1"){
                                 println("${ teas[choice2-1][0]}가 장바구니에 추가되었습니다.")
                                 //bucket = bucket.plus((teas[choice2.toInt()-1]))
@@ -177,11 +218,43 @@ fun main() {
                             continue
                         }
                         in 1..adeJuices.size -> {
-                            orderList += selectMenu(
+                            println("얼음 옵션을 선택해주세요. \n1. 얼음 많이,  2. 얼음 적게,  3. 얼음 없음")
+
+                            val Option1 = isNumber()
+                            var ice =""
+                            var soda =""
+                            var check=true
+                            var check2= true
+
+                            while(check){
+                                when(Option1){
+                                    1 -> {ice = "얼음 많이"
+                                        check=false}
+                                    2 -> {ice = "얼음 적게"
+                                        check=false}
+                                    3 ->{ice = "얼음 없음"
+                                        check=false}
+                                    else -> println("잘못된 입력입니다..")
+                                }
+                            }
+                            println("탄산을 추가하실건가요? \n1. 네,  2. 아니요")
+                            var Option2 = isNumber()
+
+                            while(check){
+                                when(Option2){
+                                    1 -> { soda = "탄산 추가"
+                                        check=false}
+                                    2 -> { soda = "탄산 없음"
+                                        check=false}
+                                    else -> println("잘못된 입력입니다..")
+                                }
+                            }
+                            orderList += addAdeJuice(
                                 adeJuices[choice2-1][0].toString(),
                                 adeJuices[choice2-1][1].toString().toInt(),
-                                adeJuices[choice2-1][2].toString())
-                            var choice3 = isNumber()
+                                adeJuices[choice2-1][2].toString(),
+                                ice, soda)
+                            val choice3 = isNumber()
                             if(choice3 ==1){
                                 println("${ adeJuices[choice2-1][0]}가 장바구니에 추가되었습니다.")
                                 cyclePoint=false
@@ -200,7 +273,62 @@ fun main() {
                 }//while
 
             }
-            4 -> {
+            4-> {
+                while (cyclePoint) {
+                    for(i in smoothieFrappe.indices){
+                        println("${i+1}. ${smoothieFrappe[i][0]} | ${smoothieFrappe[i][1]} | ${smoothieFrappe[i][2]}")
+                    }
+                    println("0.뒤로가기")
+                    var choice2= isNumber()
+
+                    when(choice2) {
+                        0 -> {
+                            cyclePoint=false
+                            continue
+                        }
+                        in 1..smoothieFrappe.size -> {
+                            println("단 맛 옵션을 선택해주세요. \n1. 매우 달게,  2. 보통,  3.제로 슈가")
+
+                            val Option1 = isNumber()
+                            var sugar =""
+                            var check= true
+
+                            while(check){
+                                when(Option1){
+                                    1 -> { sugar = "매우 달게"
+                                        check=false}
+                                    2 -> { sugar = "보통게"
+                                        check=false}
+                                    3 ->{ sugar = "제로 슈가"
+                                        check=false}
+                                    else -> println("잘못된 입력입니다..")
+                                }
+                            }
+
+                            orderList+= addSmoothiFrappe(
+                                coffees[choice2-1][0].toString(),
+                                coffees[choice2-1][1].toString().toInt(),
+                                coffees[choice2-1][2].toString(),
+                                sugar)
+                            val choice3 = isNumber()
+                            if(choice3 == 1){
+                                println("${ smoothieFrappe[choice2-1][0]}가 장바구니에 추가되었습니다.")
+                                cyclePoint=false
+                                continue
+                            } else if(choice3 == 2) { //취소
+                                println("취소하셨습니다.")
+                            }else{
+                                println("잘못된 입력입니다..")
+                                //var choice2= isNumber()
+                            }
+                        }
+                        else -> {
+                            println("잘못된 입력입니다")
+                        }
+                    }//when
+                }//while
+            }
+            5 -> {
                 while (cyclePoint) {
                     for(i in  deserts.indices){
                         println("${i+1}. ${deserts[i][0]} | ${ deserts[i][1]} | ${ deserts[i][2]}")
@@ -214,10 +342,83 @@ fun main() {
                             continue
                         }
                         in 1..deserts.size -> {
-                            orderList += selectMenu(
+                            println("식기도 같이 주문하시겠습니까?. \n1. 네,  2. 아니요")
+
+                            val Option1 = isNumber()
+                            var tableware =""
+                            var check= true
+
+                            while(check){
+                                when(Option1){
+                                    1 -> { tableware = "식기 있음게"
+                                        check=false}
+                                    2 -> { tableware = "식기 없음"
+                                        check =false}
+                                    else -> println("잘못된 입력입니다..")
+                                }
+                            }
+
+                            orderList += addDesert(
                                 deserts[choice2-1][0].toString(),
                                 deserts[choice2-1][1].toString().toInt(),
-                                deserts[choice2-1][2].toString())
+                                deserts[choice2-1][2].toString(),
+                                tableware)
+                            val choice3 = readln()
+                            if(choice3 =="1"){
+                                println("${ deserts[choice2-1][0]}가 장바구니에 추가되었습니다.")
+                                cyclePoint=false
+                                continue
+                            } else if(choice3 == "2") { //취소
+                                println("취소하셨습니다.")
+                            }else{
+                                println("잘못된 입력입니다..")
+                                choice2= isNumber()
+                            }
+                        }
+                        else -> {
+                            println("잘못된 입력입니다")
+                        }
+                    }//when
+                }//while
+
+            } //5
+            6 -> {
+                while (cyclePoint) {
+                    for(i in  mds.indices){
+                        println("${i+1}. ${mds[i][0]} | ${ mds[i][1]} | ${ mds[i][2]}")
+                    }
+                    println("0.뒤로가기")
+                    var choice2= isNumber()
+
+                    when(choice2) {
+                        0 -> {
+                            cyclePoint=false
+                            continue
+                        }
+                        in 1..mds.size -> {
+                            println("배달서비스를 이용하시겠습니까? \n1. 아니요,  2. 점포에서 받음,  3. 집에서 받음")
+
+                            var Option1 = isNumber()
+                            var delivey =""
+                            var check= true
+
+                            while(check){
+                                when(Option1){
+                                    1 -> { delivey = "아니요"
+                                        check=false}
+                                    2 -> { delivey = "점포에서 받음"
+                                        check =false}
+                                    3 -> { delivey = "집에서 받음"
+                                        check =false}
+                                    else -> println("잘못된 입력입니다..")
+                                }
+                            }
+
+                            orderList += addProduct(
+                                mds[choice2-1][0].toString(),
+                                mds[choice2-1][1].toString().toInt(),
+                                mds[choice2-1][2].toString(),
+                                delivey)
                             var choice3 = readln()
                             if(choice3 =="1"){
                                 println("${ deserts[choice2-1][0]}가 장바구니에 추가되었습니다.")
@@ -236,13 +437,13 @@ fun main() {
                     }//when
                 }//while
 
-            } //4
-            5 ->{
+            } //5
+            7 ->{
                 if(orderList.isNotEmpty()){
                     println("[ 주문내역 ]")
                     var total=0
                     orderList.forEach{ it->
-                        println("${it.name} | ${it.price} | ${it.explanation}")
+                        it.displayInfo()
                         total+=it.price
                     }
                     println("[ 총합 ]")
@@ -269,7 +470,7 @@ fun main() {
                     continue
                 }
             } //5
-            6 -> {
+            8 -> {
                 orderList.clear()
             }
             else -> {
@@ -281,28 +482,87 @@ fun main() {
 
 }
 
-fun mainView(){
+fun mainView(orderList:ArrayList<GoodsCommon>){
     println("MEGA커피에 오신 것을 환영합니다!!!")
     println("[ 메뉴판 ]")
     println("1.커피")
     println("2.티")
-    println("3.에이드/주스")
-    println("4.디저트")
+    println("3.에이드&주스")
+    println("4.스무디&프라페")
+    println("5.디저트")
+    println("6.상품")
+    if(orderList.isNotEmpty()){
+        println("[ 장바구니 ]")
+        println("7. 주문 : 내용 확인 후 주문합니다.")
+        println("8. 취소 : 진행중인 주문을 취소합니다.")
+    }
     println("0.프로그램 종료")
 
 }
 
-fun selectMenu(name: String, price:Int,explanation: String) :Drink{
+fun addCoffee(name: String, price:Int,explanation: String,decaff:String, hotIce:String) : Coffee{
 
-    var drink= Drink(name, price, explanation)
+    var coffee= Coffee(name, price, explanation, decaff,hotIce)
 
-    println("${drink.name} | ${drink.price} | ${drink.explanation}")
+    println("${coffee.name} | ${coffee.price} | ${coffee.caffeination}, ${coffee.hotIce}")
     println("위 메뉴를 장바구니에 추가하시겠습니까?")
     println("1. 확인       2. 취소")
 
-    return drink
+    return coffee
 }
 
+fun addAdeJuice(name: String, price:Int,explanation: String,ice:String, soda:String) :AdeJuice{
+
+    var adeJuice=  AdeJuice(name, price, explanation, ice, soda)
+
+    println("${adeJuice.name} | ${adeJuice.price} | ${adeJuice.ice}, ${adeJuice.soda}")
+    println("위 메뉴를 장바구니에 추가하시겠습니까?")
+    println("1. 확인       2. 취소")
+
+    return adeJuice
+}
+
+fun addTea(name: String, price:Int,explanation: String) : Tea{
+
+    var tea= Tea(name, price, explanation)
+
+    println("${tea.name} | ${tea.price} | 옵션 없음")
+    println("위 메뉴를 장바구니에 추가하시겠습니까?")
+    println("1. 확인       2. 취소")
+
+    return tea
+}
+//
+fun addSmoothiFrappe (name: String, price:Int,explanation: String,sugar:String) :SmoothiFrappe{
+
+    var smoothieFrappe= SmoothiFrappe(name, price, explanation, sugar)
+
+    println("${smoothieFrappe.name} | ${smoothieFrappe.price} | 옵션- ${smoothieFrappe.Sugar}")
+    println("위 메뉴를 장바구니에 추가하시겠습니까?")
+    println("1. 확인       2. 취소")
+
+    return smoothieFrappe
+}
+fun addDesert (name: String, price:Int,explanation: String,tableware:String) :Food{
+
+    var desert= Food(name, price, explanation, tableware)
+
+    println("${desert.name} | ${desert.price} | ${desert.explanation} | 옵션- 식기: ${desert.tableware}")
+    println("위 메뉴를 장바구니에 추가하시겠습니까?")
+    println("1. 확인       2. 취소")
+
+    return desert
+}
+fun addProduct (name: String, price:Int,explanation: String,delivery:String) :Product{
+
+    var product= Product(name, price, explanation, delivery)
+
+    println("${product.name} | ${product.price} | 옵션- 배달장소: ${product.delivery}")
+    println("위 메뉴를 장바구니에 추가하시겠습니까?")
+    println("1. 확인       2. 취소")
+
+    return product
+}
 fun isNumber() : Int{
     while (true) {
         try {

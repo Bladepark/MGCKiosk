@@ -1,6 +1,7 @@
 package com.example.mgckiosk
 
-open class Drink(name:String, price:Int, explanation:String) {
+open class GoodsCommon(name:String, price:Int, explanation:String) {
+
     var name:String = ""
     var price:Int = 0
     var explanation: String =""
