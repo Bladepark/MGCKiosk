@@ -1,5 +1,6 @@
 
-//부모 클래스와 데이터 클래스 파일 분리 시도, 키오스크 2
+//부모 클래스와 데이터 클래스 파일 분리 시도
+//사용위치 : 키오스크2, 3
 
 package com.example.mgckiosk
 
@@ -14,13 +15,13 @@ data class Dessert(override val name: String, override val price: Int, override 
 val menuList: List<AllMegaMenu> = listOf(
     Tea("티 메뉴 1번", 3000, 5),
     Tea("티 메뉴 2번", 3500, 7),
-    Coffee("커피 메뉴 1번", 4000, 6),
-    Coffee("커피 메뉴 2번", 4500, 8),
+    //Coffee("커피 메뉴 1번", 4000, 6),
+    //Coffee("커피 메뉴 2번", 4500, 8),
     Dessert("디저트 메뉴 1번", 5000, 10),
     Tea("티 메뉴 3번", 3500, 7),
     Dessert("디저트 메뉴 2번", 5000, 10),
-    Coffee("커피 메뉴 3번", 4000, 6),
-    Coffee("커피 메뉴 4번", 4000, 6),
+    //Coffee("커피 메뉴 3번", 4000, 6),
+    //Coffee("커피 메뉴 4번", 4000, 6),
     AdeJuice("커피 메뉴 3번", 4000, 6),
     AdeJuice("커피 메뉴 3번", 4000, 6),
     AdeJuice("커피 메뉴 3번", 4000, 6),

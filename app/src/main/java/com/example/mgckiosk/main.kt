@@ -1,4 +1,4 @@
-/*키오스크 1
+/*키오스크 1 : 한 페이지에 코드를 작성 텍스트 프린트 노가다
 package com.example.mgckiosk
 
 // 추상클래스 몰라요, 인터페이스 몰라요 while도 아직..
@@ -206,10 +206,7 @@ fun dessertMenu() {
 }
 */
 
-
-
-
-// 키오스크 2
+/* 키오스크 2 : 노가다 코드를 간략화 하고 데이터베이스 분리 작업
 
 /* 코드 메모
 사용한 기능 : 노가다 코드 -> DB화 및 분리, listOf, filterIsInstance
@@ -538,12 +535,579 @@ fun main(){
     printMenu()
     selectMenu()
 }
+*/
+
+/* 키오스크 3 : 코드 보강, 전 코드에서 발생한 문제 수정 및 개선, 텍스트 프린트 파일 분리
+/* 코드 메모
+
+사용한 기능 : 없음
+
+구현한 기능 : fun accessDenied()로 반복 사용되는 기능을 묶어 가독성을 향상시켰다, 그외 이전 문제해결 참고
+
+의문사항 : 반복되는 기능이 많은데 while문을 사용하면 반복되는 코드를 줄일 수 있을 것 같다
+
+문제사항 : 코드의 가독성이 너무 떨어진다 -> 기능 추가가 남았기 때문에 후에 개선해 볼 예정
+         비슷한 기능을 하는 fun을 묶는 방법을 찾아봐야 할 것 같다, Class로 감싸고 class.fun 식으로 호출해 사용?
+         또한 when을 사용하는 코드에 while을 사용하면 좋을 것 같다
+
+요약 :
+
+이전 문제해결 :
+            문제 1 : 메뉴에 리스트가 없을 때 메뉴판을 먼저 메뉴판을 호출하는 문제 -> 메인 메뉴판에서 리스트 정보를 먼저 조회하도록 변경
+
+            문제 2 : 필터가 제대로 작동하지 않고 모든 리스트를 불러오는 오류 -> filterIsInstance 코드 수정
+                    val coffee: Coffee? = menuList.filterIsInstance<Coffee>().firstOrNull()
+                      coffee 타입의 요소를 필터링하고 첫 번째 요소를 반환한다
+                      filter기능은 인터넷 검색, firstOrNull은 컴파일러 추천을 사용했는데 의도했던 바와 달라 필터링 기능만 살렸다,
+                      ?null도 마찬가지로 부정조건을 사용해서 필요없다
+
+                    old -> new
+
+                    val coffeeList: List<Coffee> = menuList.filterIsInstance<Coffee>()
+                    coffeeList 불변변수의 List를 생성하는데 여기에는 오직 <Coffee>지정된 타입만 담을 수 있고 다른 타입의 데이터가 들어오면 오류가 생긴다
+                    이 불변변수는 menuList로 초기화 되는데 filterIsInstance는 전체 리스트 중 Coffee 타입만 가져와 리스트에 추가한다
+
+           문제 3 : 키보드 입력 중 Enter 값만 입력 받도록 하고 싶다
+
+*/
+
+package com.example.mgckiosk
+
+
+
+//denied 기능 합침 (NEW! 반복 사용해야 하는 fun을 묶어 간결성 확보)
+fun accessDenied() {
+    println("\n'Enter' to Return")
+    System.`in`.read()
+    printMenu()
+    selectMenu()
+}
+
+//메뉴 선택 안내 (NEW! 항목별 인덱스 오류 수정, 항목이 없는 경우 이용불가 안내 추가, 이용불가 안내 시 메뉴판 노출 블락, Denied 기능 묶어 간결성 확보)
+fun selectMenu() {
+    val selectMenu: String? = readLine()
+    //readLine으로 키보드 입력을 받아 기능을 선택할 수 있도록 함
+    when (selectMenu) { //이번에는 when을 사용하고 다음에는 while 사용해 보기
+        "1" -> {
+            val coffeeList: List<Coffee> = menuList.filterIsInstance<Coffee>()
+            //val coffeeList = 불변변수 coffeeList, : List<Coffee> = 데이터 타입 지정(Coffee외 다른 타입이 들어오면 에러 발생)
+            //manuList = database.kt의 데이터 리스트로 초기화, .filterIsInstance<Coffee>() = Coffee 타입만 필터링해 가져온다
+            //요약하면 manuList의 Coffee 타입을 필터링하고 불변변수coffeeList의 List에 추가하지만 Coffee가 아닌 경우 컴파일 에러를 발생시킨다
+
+            if (coffeeList.isNotEmpty()) {
+                //초기화된 리스트에 값이 있는 경우를 가정한다 = 필터에 null 조건이 필요가 없어진다
+                //isEmpty 사용도 상관없지만 가독성을 위해 값이 있는 경우를 우선으로 조건을 설정했다
+                println("\n커피를 선택하셨습니다.")
+                selectCoffeeMenu()
+                coffeeMenu()
+            }else{
+                //초기화된 리스트에 값이 없는 경우를 가정한다
+                println("지금은 커피 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
+                accessDenied()
+                //리턴 안내, 메뉴 출력, 선택화면 복귀를 한 펑션에 담아 코드를 줄였다
+            }
+        }
+        "11" -> {
+            //코드 Run 상태에서 리스트에 올바르게 추가되었는지 확인하기 위한 히든메뉴
+            println("\nAdmin: View all coffee list\n")
+            val coffeeList: List<Coffee> = menuList.filterIsInstance<Coffee>()
+            //val coffeeList = 불변변수 coffeeList, : List<Coffee> = 데이터 타입 지정(Coffee외 다른 타입이 들어오면 에러 발생)
+            //manuList = database.kt의 데이터 리스트로 초기화, .filterIsInstance<Coffee>() = Coffee 타입만 필터링해 가져온다
+            //요약하면 manuList의 Coffee 타입을 필터링하고 불변변수coffeeList의 List에 추가하지만 Coffee가 아닌 경우 컴파일 에러를 발생시킨다
+
+            if (coffeeList.isNotEmpty()){
+                coffeeList.forEachIndexed {index, coffee ->
+                    println("${index + 1}. ${coffee.name} - ${coffee.price}원, 소요 시간: ${coffee.time}분")
+                }//인덱스튼 0번 부터 시작하기 때문에 사용 편의상 +1을 해 주었다
+            }else{
+                println("Empty")
+            }
+            accessDenied()
+        }
+        "2" -> {
+            val teaList: List<Tea> = menuList.filterIsInstance<Tea>()
+            if (teaList.isNotEmpty()) {
+                println("\n티를 선택하셨습니다.") //println가 아니라 클래스 호출을 해야할 듯
+                selectTeaMenu()
+                teaMenu()
+            }else{
+                println("지금은 티 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
+                accessDenied()
+            }
+        }
+        "22" -> {
+            println("\nAdmin: View all Tea list\n")
+            val teaList: List<Tea> = menuList.filterIsInstance<Tea>()
+            if (teaList.isNotEmpty()){
+                teaList.forEachIndexed {index, tea ->
+                    println("${index + 1}. ${tea.name} - ${tea.price}원, 소요 시간: ${tea.time}분")
+                }
+            }else{
+                println("Empty")
+            }
+            accessDenied()
+        }
+        "3" -> {
+            val adeJuiceList: List<AdeJuice> = menuList.filterIsInstance<AdeJuice>()
+            if (adeJuiceList.isNotEmpty()) {
+                println("\n티를 선택하셨습니다.") //println가 아니라 클래스 호출을 해야할 듯
+                selectAdeJuiceMenu()
+                adeJuiceMenu()
+            }else{
+                println("지금은 티 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
+                accessDenied()
+            }
+        }
+        "33" -> {
+            println("\nAdmin: View all Ade/Juice list\n")
+            val adeJuiceList: List<AdeJuice> = menuList.filterIsInstance<AdeJuice>()
+            if (adeJuiceList.isNotEmpty()){
+                adeJuiceList.forEachIndexed {index, adeJuice ->
+                    println("${index + 1}. ${adeJuice.name} - ${adeJuice.price}원, 소요 시간: ${adeJuice.time}분")
+                }
+            }else{
+                println("Empty")
+            }
+            accessDenied()
+        }
+        "4" -> {
+            val dessertList: List<Dessert> = menuList.filterIsInstance<Dessert>()
+            if (dessertList.isNotEmpty()) {
+                println("\n티를 선택하셨습니다.") //println가 아니라 클래스 호출을 해야할 듯
+                selectDessertMenu()
+                dessertMenu()
+            }else{
+                println("지금은 티 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
+                accessDenied()
+            }
+        }
+        "44" -> {
+            println("\nAdmin: View all Dessert list\n")
+            val dessertList: List<Dessert> = menuList.filterIsInstance<Dessert>()
+            if (dessertList.isNotEmpty()){
+                dessertList.forEachIndexed {index, dessert ->
+                    println("${index + 1}. ${dessert.name} - ${dessert.price}원, 소요 시간: ${dessert.time}분")
+                }
+            }else{
+                println("Empty")
+            }
+            accessDenied()
+        }
+        else -> {
+            println("❗️유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+            printMenu()
+            selectMenu()
+        }
+    }
+}
 
 
 
 
 
-/* 메모1
+//제품 선택 후 펑션 (COMMENT! 이용불가 안내를 메뉴판에서 구현해서 메뉴가 없어요 기능 수정이 필요함)
+fun coffeeMenu() {
+    val coffeeList: List<Coffee> = menuList.filterIsInstance<Coffee>()
+    //val coffeeList = 불변변수 coffeeList, : List<Coffee> = 데이터 타입 지정(Coffee외 다른 타입이 들어오면 에러 발생)
+    //manuList = database.kt의 데이터 리스트로 초기화, .filterIsInstance<Coffee>() = Coffee 타입만 필터링해 가져온다
+    //요약하면 manuList의 Coffee 타입을 필터링하고 불변변수coffeeList의 List에 추가하지만 Coffee가 아닌 경우 컴파일 에러를 발생시킨다
+
+    val selectCoffee: String? = readLine()
+
+    if (coffeeList.isNotEmpty()) { //coffeeList가 비어있지 않은 경우 when을 실행한다
+        when (selectCoffee?.toIntOrNull()) { //selectCoffee가 단독입력 불가하다, toInt 도 null 예외 처리 하라고 에러가 발생함, null의 이중검을으로 이해하면 될 듯
+            in 1..coffeeList.size -> { //List의 크기를 가져와 최대값을 직접 변경할 필요가 없도록 작성함
+                val selectedCoffee = coffeeList[selectCoffee!!.toInt() - 1]
+                //인덱스는 0부터 시작하기 때문에
+                println("${selectedCoffee.name} 준비해 드리겠습니다. ${selectedCoffee.price}원 이고 ${selectedCoffee.time}분 정도 소요됩니다.")
+            }
+            0 -> {
+                println("메뉴 선택으로 돌아가기")
+                main()
+            }
+            else -> {
+                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                selectCoffeeMenu()
+                coffeeMenu()
+            }
+        }
+    } else {
+        println("커피 메뉴가 없어요 ㅠㅠ") //COMMENT! 여기 else를 없애거나 다른 기능을 추가하던가?
+    }
+}
+fun teaMenu() {
+    val teaList: List<Tea> = menuList.filterIsInstance<Tea>()
+
+    val selectTea: String? = readLine()
+
+    if (teaList.isNotEmpty()) {
+        when (selectTea?.toIntOrNull()) {
+            in 1..teaList.size -> {
+                val selectedTea = teaList[selectTea!!.toInt() - 1]
+                println("${selectedTea.name} 준비해 드리겠습니다. ${selectedTea.price}원 이고 ${selectedTea.time}분 정도 소요됩니다.")
+            }
+            0 -> {
+                println("메뉴 선택으로 돌아가기")
+                main()
+            }
+            else -> {
+                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                selectTeaMenu()
+                teaMenu()
+            }
+        }
+    } else {
+        println("커피 메뉴가 없어요 ㅠㅠ") //COMMENT! 여기 else를 없애거나 다른 기능을 추가하던가?
+    }
+}
+fun adeJuiceMenu() {
+    val adeJuiceList: List<Tea> = menuList.filterIsInstance<Tea>()
+
+    val selectAdeJuice: String? = readLine()
+
+    if (adeJuiceList.isNotEmpty()) {
+        when (selectAdeJuice?.toIntOrNull()) {
+            in 1..adeJuiceList.size -> {
+                val selectedAdeJuice = adeJuiceList[selectAdeJuice!!.toInt() - 1]
+                println("${selectedAdeJuice.name} 준비해 드리겠습니다. ${selectedAdeJuice.price}원 이고 ${selectedAdeJuice.time}분 정도 소요됩니다.")
+            }
+            0 -> {
+                println("메뉴 선택으로 돌아가기")
+                main()
+            }
+            else -> {
+                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                selectAdeJuiceMenu()
+                adeJuiceMenu()
+            }
+        }
+    } else {
+        println("커피 메뉴가 없어요 ㅠㅠ") //COMMENT! 여기 else를 없애거나 다른 기능을 추가하던가?
+    }
+}
+fun dessertMenu() {
+    val dessertList: List<Dessert> = menuList.filterIsInstance<Dessert>()
+
+    val selectDessert: String? = readLine()
+
+    if (dessertList.isNotEmpty()) {
+        when (selectDessert?.toIntOrNull()) {
+            in 1..dessertList.size -> {
+                val selectedDessert = dessertList[selectDessert!!.toInt() - 1]
+                println("${selectedDessert.name} 준비해 드리겠습니다. ${selectedDessert.price}원 이고 ${selectedDessert.time}분 정도 소요됩니다.")
+            }
+            0 -> {
+                println("메뉴 선택으로 돌아가기")
+                main()
+            }
+            else -> {
+                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                selectDessertMenu()
+                dessertMenu()
+            }
+        }
+    } else {
+        println("커피 메뉴가 없어요 ㅠㅠ") //COMMENT! 여기 else를 없애거나 다른 기능을 추가하던가?
+    }
+}
+
+
+
+fun main(){
+    wellcomeMenu()
+    printMenu()
+    selectMenu()
+}
+
+*/
+
+
+/* 코드 메모
+
+사용한 기능 : 없음
+
+구현한 기능 : fun accessDenied()로 반복 사용되는 기능을 묶어 가독성을 향상시켰다, 그외 이전 문제해결 참고
+
+의문사항 : 반복되는 기능이 많은데 while문을 사용하면 반복되는 코드를 줄일 수 있을 것 같다
+
+문제사항 : 코드의 가독성이 너무 떨어진다 -> 기능 추가가 남았기 때문에 후에 개선해 볼 예정
+         비슷한 기능을 하는 fun을 묶는 방법을 찾아봐야 할 것 같다, Class로 감싸고 class.fun 식으로 호출해 사용?
+         또한 when을 사용하는 코드에 while을 사용하면 좋을 것 같다
+
+요약 :
+
+이전 문제해결 :
+            문제 1 : 메뉴에 리스트가 없을 때 메뉴판을 먼저 메뉴판을 호출하는 문제 -> 메인 메뉴판에서 리스트 정보를 먼저 조회하도록 변경
+
+            문제 2 : 필터가 제대로 작동하지 않고 모든 리스트를 불러오는 오류 -> filterIsInstance 코드 수정
+                    val coffee: Coffee? = menuList.filterIsInstance<Coffee>().firstOrNull()
+                      coffee 타입의 요소를 필터링하고 첫 번째 요소를 반환한다
+                      filter기능은 인터넷 검색, firstOrNull은 컴파일러 추천을 사용했는데 의도했던 바와 달라 필터링 기능만 살렸다,
+                      ?null도 마찬가지로 부정조건을 사용해서 필요없다
+
+                    old -> new
+
+                    val coffeeList: List<Coffee> = menuList.filterIsInstance<Coffee>()
+                    coffeeList 불변변수의 List를 생성하는데 여기에는 오직 <Coffee>지정된 타입만 담을 수 있고 다른 타입의 데이터가 들어오면 오류가 생긴다
+                    이 불변변수는 menuList로 초기화 되는데 filterIsInstance는 전체 리스트 중 Coffee 타입만 가져와 리스트에 추가한다
+
+           문제 3 : 키보드 입력 중 Enter 값만 입력 받도록 하고 싶다
+
+*/
+
+package com.example.mgckiosk
+
+
+
+//denied 기능 합침 (NEW! 반복 사용해야 하는 fun을 묶어 간결성 확보)
+fun accessDenied() {
+    println("\n'Enter' to Return")
+    System.`in`.read()
+    printMenu()
+    selectMenu()
+}
+
+//메뉴 선택 안내 (NEW! 항목별 인덱스 오류 수정, 항목이 없는 경우 이용불가 안내 추가, 이용불가 안내 시 메뉴판 노출 블락, Denied 기능 묶어 간결성 확보)
+fun selectMenu() {
+    val selectMenu: String? = readLine()
+    //readLine으로 키보드 입력을 받아 기능을 선택할 수 있도록 함
+    when (selectMenu) { //이번에는 when을 사용하고 다음에는 while 사용해 보기
+        "1" -> {
+            val coffeeList: List<Coffee> = menuList.filterIsInstance<Coffee>()
+            //val coffeeList = 불변변수 coffeeList, : List<Coffee> = 데이터 타입 지정(Coffee외 다른 타입이 들어오면 에러 발생)
+            //manuList = database.kt의 데이터 리스트로 초기화, .filterIsInstance<Coffee>() = Coffee 타입만 필터링해 가져온다
+            //요약하면 manuList의 Coffee 타입을 필터링하고 불변변수coffeeList의 List에 추가하지만 Coffee가 아닌 경우 컴파일 에러를 발생시킨다
+
+            if (coffeeList.isNotEmpty()) {
+                //초기화된 리스트에 값이 있는 경우를 가정한다 = 필터에 null 조건이 필요가 없어진다
+                //isEmpty 사용도 상관없지만 가독성을 위해 값이 있는 경우를 우선으로 조건을 설정했다
+                println("\n커피를 선택하셨습니다.")
+                selectCoffeeMenu()
+                coffeeMenu()
+            }else{
+                //초기화된 리스트에 값이 없는 경우를 가정한다
+                println("지금은 커피 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
+                accessDenied()
+                //리턴 안내, 메뉴 출력, 선택화면 복귀를 한 펑션에 담아 코드를 줄였다
+            }
+        }
+        "11" -> {
+            //코드 Run 상태에서 리스트에 올바르게 추가되었는지 확인하기 위한 히든메뉴
+            println("\nAdmin: View all coffee list\n")
+            val coffeeList: List<Coffee> = menuList.filterIsInstance<Coffee>()
+            //val coffeeList = 불변변수 coffeeList, : List<Coffee> = 데이터 타입 지정(Coffee외 다른 타입이 들어오면 에러 발생)
+            //manuList = database.kt의 데이터 리스트로 초기화, .filterIsInstance<Coffee>() = Coffee 타입만 필터링해 가져온다
+            //요약하면 manuList의 Coffee 타입을 필터링하고 불변변수coffeeList의 List에 추가하지만 Coffee가 아닌 경우 컴파일 에러를 발생시킨다
+
+            if (coffeeList.isNotEmpty()){
+                coffeeList.forEachIndexed {index, coffee ->
+                    println("${index + 1}. ${coffee.name} - ${coffee.price}원, 소요 시간: ${coffee.time}분")
+                }//인덱스튼 0번 부터 시작하기 때문에 사용 편의상 +1을 해 주었다
+            }else{
+                println("Empty")
+            }
+            accessDenied()
+        }
+        "2" -> {
+            val teaList: List<Tea> = menuList.filterIsInstance<Tea>()
+            if (teaList.isNotEmpty()) {
+                println("\n티를 선택하셨습니다.") //println가 아니라 클래스 호출을 해야할 듯
+                selectTeaMenu()
+                teaMenu()
+            }else{
+                println("지금은 티 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
+                accessDenied()
+            }
+        }
+        "22" -> {
+            println("\nAdmin: View all Tea list\n")
+            val teaList: List<Tea> = menuList.filterIsInstance<Tea>()
+            if (teaList.isNotEmpty()){
+                teaList.forEachIndexed {index, tea ->
+                    println("${index + 1}. ${tea.name} - ${tea.price}원, 소요 시간: ${tea.time}분")
+                }
+            }else{
+                println("Empty")
+            }
+            accessDenied()
+        }
+        "3" -> {
+            val adeJuiceList: List<AdeJuice> = menuList.filterIsInstance<AdeJuice>()
+            if (adeJuiceList.isNotEmpty()) {
+                println("\n티를 선택하셨습니다.") //println가 아니라 클래스 호출을 해야할 듯
+                selectAdeJuiceMenu()
+                adeJuiceMenu()
+            }else{
+                println("지금은 티 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
+                accessDenied()
+            }
+        }
+        "33" -> {
+            println("\nAdmin: View all Ade/Juice list\n")
+            val adeJuiceList: List<AdeJuice> = menuList.filterIsInstance<AdeJuice>()
+            if (adeJuiceList.isNotEmpty()){
+                adeJuiceList.forEachIndexed {index, adeJuice ->
+                    println("${index + 1}. ${adeJuice.name} - ${adeJuice.price}원, 소요 시간: ${adeJuice.time}분")
+                }
+            }else{
+                println("Empty")
+            }
+            accessDenied()
+        }
+        "4" -> {
+            val dessertList: List<Dessert> = menuList.filterIsInstance<Dessert>()
+            if (dessertList.isNotEmpty()) {
+                println("\n티를 선택하셨습니다.") //println가 아니라 클래스 호출을 해야할 듯
+                selectDessertMenu()
+                dessertMenu()
+            }else{
+                println("지금은 티 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
+                accessDenied()
+            }
+        }
+        "44" -> {
+            println("\nAdmin: View all Dessert list\n")
+            val dessertList: List<Dessert> = menuList.filterIsInstance<Dessert>()
+            if (dessertList.isNotEmpty()){
+                dessertList.forEachIndexed {index, dessert ->
+                    println("${index + 1}. ${dessert.name} - ${dessert.price}원, 소요 시간: ${dessert.time}분")
+                }
+            }else{
+                println("Empty")
+            }
+            accessDenied()
+        }
+        else -> {
+            println("❗️유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+            printMenu()
+            selectMenu()
+        }
+    }
+}
+
+
+
+
+
+//제품 선택 후 펑션 (COMMENT! 이용불가 안내를 메뉴판에서 구현해서 메뉴가 없어요 기능 수정이 필요함)
+fun coffeeMenu() {
+    val coffeeList: List<Coffee> = menuList.filterIsInstance<Coffee>()
+    //val coffeeList = 불변변수 coffeeList, : List<Coffee> = 데이터 타입 지정(Coffee외 다른 타입이 들어오면 에러 발생)
+    //manuList = database.kt의 데이터 리스트로 초기화, .filterIsInstance<Coffee>() = Coffee 타입만 필터링해 가져온다
+    //요약하면 manuList의 Coffee 타입을 필터링하고 불변변수coffeeList의 List에 추가하지만 Coffee가 아닌 경우 컴파일 에러를 발생시킨다
+
+    val selectCoffee: String? = readLine()
+
+    if (coffeeList.isNotEmpty()) { //coffeeList가 비어있지 않은 경우 when을 실행한다
+        when (selectCoffee?.toIntOrNull()) { //selectCoffee가 단독입력 불가하다, toInt 도 null 예외 처리 하라고 에러가 발생함, null의 이중검을으로 이해하면 될 듯
+            in 1..coffeeList.size -> { //List의 크기를 가져와 최대값을 직접 변경할 필요가 없도록 작성함
+                val selectedCoffee = coffeeList[selectCoffee!!.toInt() - 1]
+                //인덱스는 0부터 시작하기 때문에
+                println("${selectedCoffee.name} 준비해 드리겠습니다. ${selectedCoffee.price}원 이고 ${selectedCoffee.time}분 정도 소요됩니다.")
+            }
+            0 -> {
+                println("메뉴 선택으로 돌아가기")
+                main()
+            }
+            else -> {
+                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                selectCoffeeMenu()
+                coffeeMenu()
+            }
+        }
+    } else {
+        println("커피 메뉴가 없어요 ㅠㅠ") //COMMENT! 여기 else를 없애거나 다른 기능을 추가하던가?
+    }
+}
+fun teaMenu() {
+    val teaList: List<Tea> = menuList.filterIsInstance<Tea>()
+
+    val selectTea: String? = readLine()
+
+    if (teaList.isNotEmpty()) {
+        when (selectTea?.toIntOrNull()) {
+            in 1..teaList.size -> {
+                val selectedTea = teaList[selectTea!!.toInt() - 1]
+                println("${selectedTea.name} 준비해 드리겠습니다. ${selectedTea.price}원 이고 ${selectedTea.time}분 정도 소요됩니다.")
+            }
+            0 -> {
+                println("메뉴 선택으로 돌아가기")
+                main()
+            }
+            else -> {
+                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                selectTeaMenu()
+                teaMenu()
+            }
+        }
+    } else {
+        println("커피 메뉴가 없어요 ㅠㅠ") //COMMENT! 여기 else를 없애거나 다른 기능을 추가하던가?
+    }
+}
+fun adeJuiceMenu() {
+    val adeJuiceList: List<Tea> = menuList.filterIsInstance<Tea>()
+
+    val selectAdeJuice: String? = readLine()
+
+    if (adeJuiceList.isNotEmpty()) {
+        when (selectAdeJuice?.toIntOrNull()) {
+            in 1..adeJuiceList.size -> {
+                val selectedAdeJuice = adeJuiceList[selectAdeJuice!!.toInt() - 1]
+                println("${selectedAdeJuice.name} 준비해 드리겠습니다. ${selectedAdeJuice.price}원 이고 ${selectedAdeJuice.time}분 정도 소요됩니다.")
+            }
+            0 -> {
+                println("메뉴 선택으로 돌아가기")
+                main()
+            }
+            else -> {
+                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                selectAdeJuiceMenu()
+                adeJuiceMenu()
+            }
+        }
+    } else {
+        println("커피 메뉴가 없어요 ㅠㅠ") //COMMENT! 여기 else를 없애거나 다른 기능을 추가하던가?
+    }
+}
+fun dessertMenu() {
+    val dessertList: List<Dessert> = menuList.filterIsInstance<Dessert>()
+
+    val selectDessert: String? = readLine()
+
+    if (dessertList.isNotEmpty()) {
+        when (selectDessert?.toIntOrNull()) {
+            in 1..dessertList.size -> {
+                val selectedDessert = dessertList[selectDessert!!.toInt() - 1]
+                println("${selectedDessert.name} 준비해 드리겠습니다. ${selectedDessert.price}원 이고 ${selectedDessert.time}분 정도 소요됩니다.")
+            }
+            0 -> {
+                println("메뉴 선택으로 돌아가기")
+                main()
+            }
+            else -> {
+                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                selectDessertMenu()
+                dessertMenu()
+            }
+        }
+    } else {
+        println("커피 메뉴가 없어요 ㅠㅠ") //COMMENT! 여기 else를 없애거나 다른 기능을 추가하던가?
+    }
+}
+
+
+
+fun main(){
+    wellcomeMenu()
+    printMenu()
+    selectMenu()
+}
+
+
+/* 기능구현 메모
+
+!!! 4 번째에는 While 기능을 공부해서 구현해 보는 것을 우선으로 한다. !!!
+
 인터페이스는 반드시 구현되어야 하는 기능을 선언하여 강제한다
 가령 핫/아이스 선택, 쿠폰코드 입력
 
@@ -552,9 +1116,9 @@ fun main(){
 일단 기존의 틀은 그대로 유지하되 반복되는 것을 하나의 클래스로 묶는 것을 목표로 한다
 
 목표 : Class drinkMenu로 음료 통합
-*/
 
-/* 3번째에 사용해 볼 것, 클래스의 추상화?
+
+[ 나중에 사용해 볼 것, 클래스의 추상화? ]
 
 abstract class Drink(val name: String, val time: Int, val price: Int) {
     abstract fun coffeeMenu()
