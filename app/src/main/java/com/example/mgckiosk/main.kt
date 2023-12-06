@@ -1,5 +1,9 @@
 package com.example.mgckiosk
 
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Date
+
 
 // 메가 커피 키오스크 팀 과제 3조 파이팅!!
 
@@ -63,42 +67,58 @@ fun main() {
         ,arrayOf("티라미수 케익",2100,"대충 맛과 향이 좋다는 설명")
         ,arrayOf("허니브레드",3000,"대충 맛과 향이 좋다는 설명")
     )
+    var orderList = ArrayList<Drink>()
+    println("고객이 가진 돈을 입력해주세요")
+    var coin = isNumber()
+    var cust = Customer(coin)
 
-    lateinit var bucket : Array<Array<Comparable<*>>>
-
-        while (true) {
+    while (true) {
         mainView()
-        var cyclePoint=true
-        var choice= readlnOrNull()
-        when (choice) {
-            "0" -> System.exit(0)
-            "1" -> {
-                while (cyclePoint) {
-                    showCoffe()
-                    var choice2= readln()
+        if(orderList.isNotEmpty()){
+            println("[ 장바구니 ]")
+            println("5. 주문 : 내용 확인 후 주문합니다.")
+            println("6. 취소 : 진행중인 주문을 취소합니다.")
+        }
 
-                    when(choice2.toInt()) {
+//        orderList.forEach{ it->
+//            println(it.name)
+//            println(it.explanation)
+//            println(it.price)
+//        }
+
+        var cyclePoint=true
+        var choice= isNumber()
+        when (choice) {
+            0 -> System.exit(0)
+            1 -> {
+                while (cyclePoint) {
+                    for(i in coffees.indices){
+                        println("${i+1}. ${coffees[i][0]} | ${coffees[i][1]} | ${coffees[i][2]}")
+                    }
+                    println("0.뒤로가기")
+                    var choice2= isNumber()
+
+                    when(choice2) {
                         0 -> {
                             cyclePoint=false
                             continue
                         }
                         in 1..coffees.size -> {
-                            selectMenu(
-                                coffees[choice2.toInt()-1][0].toString(),
-                                coffees[choice2.toInt()-1][1].toString().toInt(),
-                                coffees[choice2.toInt()-1][2].toString())
-                            var choice3 = readln()
-                            if(choice3 =="1"){
-                                println("${ coffees[choice2.toInt()-1][0]}가 장바구니에 추가되었습니다.")
+                            orderList+=selectMenu(
+                                coffees[choice2-1][0].toString(),
+                                coffees[choice2-1][1].toString().toInt(),
+                                coffees[choice2-1][2].toString())
+                            var choice3 = isNumber()
+                            if(choice3 == 1){
+                                println("${ coffees[choice2-1][0]}가 장바구니에 추가되었습니다.")
                                 cyclePoint=false
                                 continue
-                            } else if(choice3 == "2") { //취소
+                            } else if(choice3 == 2) { //취소
                                 println("취소하셨습니다.")
                             }else{
                                 println("잘못된 입력입니다..")
-                                var choice2= readln()
+                                //var choice2= isNumber()
                             }
-
                         }
                         else -> {
                             println("잘못된 입력입니다")
@@ -106,24 +126,27 @@ fun main() {
                     }//when
                 }//while
             } //1
-            "2" -> {
+            2 -> {
                 while (cyclePoint) {
-                    showTea()
-                    var choice2= readln()
+                    for(i in teas.indices){
+                        println("${i+1}. ${teas[i][0]} | ${teas[i][1]} | ${teas[i][2]}")
+                    }
+                    println("0.뒤로가기")
+                    var choice2 = isNumber()
 
-                    when(choice2.toInt()) {
+                    when(choice2) {
                         0 -> {
                             cyclePoint=false
                             continue
                         }
                         in 1..teas.size -> {
-                            selectMenu(
-                                teas[choice2.toInt()-1][0].toString(),
-                                teas[choice2.toInt()-1][1].toString().toInt(),
-                                teas[choice2.toInt()-1][2].toString())
+                            orderList += selectMenu(
+                                teas[choice2-1][0].toString(),
+                                teas[choice2-1][1].toString().toInt(),
+                                teas[choice2-1][2].toString())
                                 var choice3 = readln()
                             if(choice3 =="1"){
-                                println("${ teas[choice2.toInt()-1][0]}가 장바구니에 추가되었습니다.")
+                                println("${ teas[choice2-1][0]}가 장바구니에 추가되었습니다.")
                                 //bucket = bucket.plus((teas[choice2.toInt()-1]))
                                 cyclePoint=false
                                 continue
@@ -131,7 +154,7 @@ fun main() {
                                 println("취소하셨습니다.")
                             }else{
                                 println("잘못된 입력입니다..")
-                                choice2= readln()
+                                choice2= isNumber()
                             }
                         }
                         else -> {
@@ -140,31 +163,34 @@ fun main() {
                     }//when
                 }//while
             }
-            "3" -> {
+            3 -> {
                 while (cyclePoint) {
-                    showAdejuice()
-                    var choice2= readln()
+                    for(i in adeJuices.indices){
+                        println("${i+1}. ${adeJuices[i][0]} | ${adeJuices[i][1]} | ${adeJuices[i][2]}")
+                    }
+                    println("0.뒤로가기")
+                    var choice2= isNumber()
 
-                    when(choice2.toInt()) {
+                    when(choice2) {
                         0 -> {
                             cyclePoint=false
                             continue
                         }
                         in 1..adeJuices.size -> {
-                            selectMenu(
-                                adeJuices[choice2.toInt()-1][0].toString(),
-                                adeJuices[choice2.toInt()-1][1].toString().toInt(),
-                                adeJuices[choice2.toInt()-1][2].toString())
-                            var choice3 = readln()
-                            if(choice3 =="1"){
-                                println("${ adeJuices[choice2.toInt()-1][0]}가 장바구니에 추가되었습니다.")
+                            orderList += selectMenu(
+                                adeJuices[choice2-1][0].toString(),
+                                adeJuices[choice2-1][1].toString().toInt(),
+                                adeJuices[choice2-1][2].toString())
+                            var choice3 = isNumber()
+                            if(choice3 ==1){
+                                println("${ adeJuices[choice2-1][0]}가 장바구니에 추가되었습니다.")
                                 cyclePoint=false
                                 continue
-                            } else if(choice3 == "2") { //취소
+                            } else if(choice3 == 2) { //취소
                                 println("취소하셨습니다.")
                             }else{
                                 println("잘못된 입력입니다..")
-                                choice2= readln()
+                                choice2= isNumber()
                             }
                         }
                         else -> {
@@ -174,31 +200,34 @@ fun main() {
                 }//while
 
             }
-            "4" -> {
+            4 -> {
                 while (cyclePoint) {
-                    showDesert()
-                    var choice2= readln()
+                    for(i in  deserts.indices){
+                        println("${i+1}. ${deserts[i][0]} | ${ deserts[i][1]} | ${ deserts[i][2]}")
+                    }
+                    println("0.뒤로가기")
+                    var choice2= isNumber()
 
-                    when(choice2.toInt()) {
+                    when(choice2) {
                         0 -> {
                             cyclePoint=false
                             continue
                         }
                         in 1..deserts.size -> {
-                            selectMenu(
-                                deserts[choice2.toInt()-1][0].toString(),
-                                deserts[choice2.toInt()-1][1].toString().toInt(),
-                                deserts[choice2.toInt()-1][2].toString())
+                            orderList += selectMenu(
+                                deserts[choice2-1][0].toString(),
+                                deserts[choice2-1][1].toString().toInt(),
+                                deserts[choice2-1][2].toString())
                             var choice3 = readln()
                             if(choice3 =="1"){
-                                println("${ deserts[choice2.toInt()-1][0]}가 장바구니에 추가되었습니다.")
+                                println("${ deserts[choice2-1][0]}가 장바구니에 추가되었습니다.")
                                 cyclePoint=false
                                 continue
                             } else if(choice3 == "2") { //취소
                                 println("취소하셨습니다.")
                             }else{
                                 println("잘못된 입력입니다..")
-                                choice2= readln()
+                                choice2= isNumber()
                             }
                         }
                         else -> {
@@ -207,6 +236,41 @@ fun main() {
                     }//when
                 }//while
 
+            } //4
+            5 ->{
+                if(orderList.isNotEmpty()){
+                    println("[ 주문내역 ]")
+                    var total=0
+                    orderList.forEach{ it->
+                        println("${it.name} | ${it.price} | ${it.explanation}")
+                        total+=it.price
+                    }
+                    println("[ 총합 ]")
+                    println("￦ ${total} \n")
+                    println("1. 주문     2. 메뉴판으로")
+                    var choice3 = isNumber()
+                    when(choice3){
+                        1 ->{
+                            if(cust.money>=total){
+                                var localDate = LocalDateTime.now()
+                                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss")
+                                val now = localDate.format(formatter)
+                                println("결제를 완료했습니다.(${now})")
+                                cust.money-=total
+                                orderList.clear()
+                            } else{
+                                println("현재 잔액은 ${cust.money} 으로 ${total-cust.money}이 부족해서 주문할 수 없습니다.")
+                            }
+                        }
+                        2 -> continue
+                    }
+                }else{
+                    println("잘못된 입력입니다")
+                    continue
+                }
+            } //5
+            6 -> {
+                orderList.clear()
             }
             else -> {
                 println("잘못된 입력입니다")
@@ -219,7 +283,7 @@ fun main() {
 
 fun mainView(){
     println("MEGA커피에 오신 것을 환영합니다!!!")
-    println("아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.")
+    println("[ 메뉴판 ]")
     println("1.커피")
     println("2.티")
     println("3.에이드/주스")
@@ -228,74 +292,24 @@ fun mainView(){
 
 }
 
-fun selectMenu(name: String, price:Int,explanation: String) {
+fun selectMenu(name: String, price:Int,explanation: String) :Drink{
 
-    var coffee=Coffee(name,price,explanation)
-    println("${coffee.name} | ${coffee.price} | ${coffee.explanation}")
+    var drink= Drink(name, price, explanation)
+
+    println("${drink.name} | ${drink.price} | ${drink.explanation}")
     println("위 메뉴를 장바구니에 추가하시겠습니까?")
     println("1. 확인       2. 취소")
+
+    return drink
 }
 
-fun showCoffe(){
-    println("1.할메가커피")
-    println("2.왕할메가커피")
-    println("3.헤이즐넛 아메리카노")
-    println("4.바닐라 아메리카노")
-    println("5.에스프레소")
-    println("6.젤라또 아포가토")
-    println("7.아메리카노")
-    println("8.티라미수라떼")
-    println("9.메가리카노")
-    println("10.연유라떼")
-    println("11.카라멜마끼아또")
-    println("12.카페라떼")
-    println("13.카페모카")
-    println("14.카푸치노")
-    println("15.콜드브루라떼")
-    println("16.콜드브루오리지널")
-    println("0. 뒤로가기")
-}
-fun showTea(){
-    println("1.녹차")
-    println("2.사과유자차")
-    println("3.얼그레이")
-    println("4.캐모마일")
-    println("5.페퍼민트")
-    println("6.복숭아아이스티")
-    println("7.유자차")
-    println("8.레몬차")
-    println("9.자몽차")
-    println("10.허니자몽블랙티")
-    println("0. 뒤로가기")
-}
-fun showAdejuice(){
-    println("1.라임모히또")
-    println("2.레몬에이드")
-    println("3.블루레몬에이드")
-    println("4.자몽에이드")
-    println("5.청포도에이드")
-    println("6.유니콘매직에이드(핑크)")
-    println("7.유니콘매직에이드(블루)")
-    println("8.체리콕")
-    println("9.메가에이드")
-    println("0. 뒤로가기")
-}
-fun showDesert(){
-    println("1.와앙 피자 보름달빵")
-    println("2.와앙 콘마요 보름달빵")
-    println("3.뚱크림치즈약과쿠키")
-    println("4.말차스모어쿠키")
-    println("5.마카다미아 쿠키")
-    println("6.초콜릿칩 쿠키")
-    println("7.플레인크로플")
-    println("8.아이스크림크로플")
-    println("9.아이스허니와앙슈")
-    println("10.크로크무슈")
-    println("11.몽쉘케이크")
-    println("12.햄앤치즈샌드")
-    println("13.치즈 케익")
-    println("14.초코무스 케익")
-    println("15.티라미수 케익")
-    println("16.허니브레드")
-    println("0. 뒤로가기")
+fun isNumber() : Int{
+    while (true) {
+        try {
+            var num = readln().toInt()
+            return num
+        } catch (e: NumberFormatException) {
+            println("숫자를 입력해주세요.")
+        }
+    }
 }
