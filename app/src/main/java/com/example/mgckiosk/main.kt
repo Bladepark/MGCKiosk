@@ -1,3 +1,4 @@
+/*키오스크 1
 package com.example.mgckiosk
 
 // 추상클래스 몰라요, 인터페이스 몰라요 while도 아직..
@@ -203,3 +204,369 @@ fun dessertMenu() {
         }
     }
 }
+*/
+
+
+
+
+// 키오스크 2
+
+/* 코드 메모
+사용한 기능 : 노가다 코드 -> DB화 및 분리, listOf, filterIsInstance
+구현한 기능 : 키오스크 1과 대동소이 하지만 관리자를 위한 카테고리별 DB출력 히든기능 구현, 노가다 코드 -> DB화 및 분리,
+           접근 시 메인화면 작성, 키 입력 시 리턴
+의문사항 : 비슷한 기능을 하는 fun을 묶는 방법은 없을까? Class로 감싸고 class.fun 식으로 호출해 사용할까?
+문제사항 : 환영화면에서 숫자를 입력하고 'Enter'로 키를 입력받으면 다음 메뉴가 바로 선택되어 다음으로 넘어가버림
+        'Enter'입력만을 받던지, 아무 키를 눌러서 넘어가도록 하던지 조치가 필요해 보임
+
+요약 : 의도한 코드를 작성하고 문제가 발생했을 때 컴파일러 도움말이 많은 도움이 되었다
+*/
+
+//이 ㅅ1발 우리 깐부아니가 제발...
+package com.example.mgckiosk
+
+/*부모 클래스와 데이터 클래스 파일 분리 시도
+open class AllMegaMenu(open val name: String, open val price: Int, open val time: Int)
+
+data class Tea(override val name: String, override val price: Int, override val time: Int) : AllMegaMenu(name, price, time)
+data class Coffee(override val name: String, override val price: Int, override val time: Int) : AllMegaMenu(name, price, time)
+data class AdeJuice(override val name: String, override val price: Int, override val time: Int) : AllMegaMenu(name, price, time)
+data class Dessert(override val name: String, override val price: Int, override val time: Int) : AllMegaMenu(name, price, time)
+
+
+val menuList: List<AllMegaMenu> = listOf(
+    Tea("티 메뉴 1번", 3000, 5),
+    Tea("티 메뉴 2번", 3500, 7),
+    Coffee("커피 메뉴 1번", 4000, 6),
+    Coffee("커피 메뉴 2번", 4500, 8),
+    Dessert("디저트 메뉴 1번", 5000, 10),
+    Tea("티 메뉴 3번", 3500, 7),
+    Dessert("디저트 메뉴 2번", 5000, 10),
+    Coffee("커피 메뉴 3번", 4000, 6),
+    Coffee("커피 메뉴 4번", 4000, 6),
+    AdeJuice("커피 메뉴 3번", 4000, 6),
+    AdeJuice("커피 메뉴 3번", 4000, 6),
+    AdeJuice("커피 메뉴 3번", 4000, 6),
+
+)*/
+
+//Wellcome 화면 안내
+fun wellcomeMenu() {
+    println(
+        "\n" +
+                "  __    __        _  _                                     _          \n" +
+                " / / /\\ \\ \\  ___ | || |  ___   ___   _ __ ___    ___      | |_   ___  \n" +
+                " \\ \\/  \\/ / / _ \\| || | / __| / _ \\ | '_ ` _ \\  / _ \\     | __| / _ \\ \n" +
+                "  \\  /\\  / |  __/| || || (__ | (_) || | | | | ||  __/     | |_ | (_) |\n" +
+                "   \\/  \\/   \\___||_||_| \\___| \\___/ |_| |_| |_| \\___|      \\__| \\___/ \n" +
+                " _____  _____  _____  _____    _____  _____  _____  _____  _____  _____ \n" +
+                "|     ||   __||   __||  _  |  |     ||     ||   __||   __||   __||   __|\n" +
+                "| | | ||   __||  |  ||     |  |   --||  |  ||   __||   __||   __||   __|\n" +
+                "|_|_|_||_____||_____||__|__|  |_____||_____||__|   |__|   |_____||_____|\n" +
+                "                                                                        \n"
+    )
+    print("             Press 'Enter' to Start\n" +
+          "           시작하시려면 'Enter'키를 누르세요\n\n")
+    // 키 입력 대기(enter = 바로시작, 키 입력 enter = 시작)
+    // 다음 코드에서는 키 입력으로 바로 시작할 수 있도록 해보자 (ex: r 입력 = 바로시작)
+    System.`in`.read()
+}
+
+//메뉴판 화면 안내
+fun printMenu() {
+    println(
+        "아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n" +
+                "\n" +
+                "[ MEGA Coffee menu ]\n" +
+                "1.  Coffee       | 에티오피아의 카프카의 고품질 원두로 로스팅한 커피\n" +
+                "2.  Tea          | 오스트레일리아 유명 티 메이커 [T2] Collaboration\n" +
+                "3.  Ade/Juice    | 매일 아침 시장에서 공수해 오는 신선한 과일로 제조한 음료\n" +
+                "4.  Dessert      | [Le Cordon Bleu]를 수석 졸업 김앤장 셰프의 걸작\n\n" +
+                "원하시는 메뉴의 번호를 입력해주세요."
+    )
+}
+
+//메뉴 선택 안내
+fun selectMenu() {
+    val selectMenu: String? = readLine()
+    //이번에는 when을 사용하고 다음에는 while 사용해 보기
+    when (selectMenu) {
+        "1" -> {
+            println("\n커피를 선택하셨습니다.") //println가 아니라 클래스 호출을 해야할 듯
+            selectCoffeeMenu()
+            coffeeMenu()
+        }
+        "11" -> {
+            println("\nAdmin: View all coffee list\n")
+            val coffeeList: List<Coffee> = menuList.filterIsInstance<Coffee>()
+            coffeeList.forEachIndexed {index, coffee ->
+                println("${index + 1}. ${coffee.name} - ${coffee.price}원, 소요 시간: ${coffee.time}분")
+            }
+            println("'Enter' to Return")
+            System.`in`.read()
+            printMenu()
+            selectMenu()
+        }
+        "2" -> {
+            println("\n티를 선택하셨습니다.")
+            selectTeaMenu()
+            TeaMenu()
+        }
+        "22" -> {
+            println("\nAdmin: View all Tea list\n")
+            val teaList: List<Tea> = menuList.filterIsInstance<Tea>()
+            teaList.forEachIndexed {index, tea ->
+                println("${index + 1}. ${tea.name} - ${tea.price}원, 소요 시간: ${tea.time}분")
+            }
+            println("'Enter' to Return")
+            System.`in`.read()
+            printMenu()
+            selectMenu()
+        }
+        "3" -> {
+            println("\n에이드/쥬스를 선택하셨습니다.")
+            selectAdeJuiceMenu()
+            adeJuiceMenu()
+        }
+        "33" -> {
+            println("\nAdmin: View all Ade/Juice list\n")
+            val adeJuiceList: List<AdeJuice> = menuList.filterIsInstance<AdeJuice>()
+            adeJuiceList.forEachIndexed {index, adeJuice ->
+                println("${index + 1}. ${adeJuice.name} - ${adeJuice.price}원, 소요 시간: ${adeJuice.time}분")
+            }
+            println("'Enter' to Return")
+            System.`in`.read()
+            printMenu()
+            selectMenu()
+        }
+        "4" -> {
+            println("\n디저트를 선택하셨습니다.")
+            selectDessertMenu()
+            dessertMenu()
+        }
+        "44" -> {
+            println("\nAdmin: View all Dessert list\n")
+            val dessertList: List<Dessert> = menuList.filterIsInstance<Dessert>()
+            dessertList.forEachIndexed {index, dessert ->
+                println("${index + 1}. ${dessert.name} - ${dessert.price}원, 소요 시간: ${dessert.time}분")
+            }
+            println("'Enter' to Return")
+            System.`in`.read()
+            printMenu()
+            selectMenu()
+        }
+        else -> {
+            println("❗️유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+            printMenu()
+            selectMenu()
+        }
+    }
+}
+
+
+//메뉴 선택 후 안내
+fun selectCoffeeMenu() {
+    println(
+        "아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n" +
+                "\n" +
+                "[ 1. Coffee menu ]\n" +
+                " \n" +
+                "1.  가메리카노      | 커피넘버 원 고품질 원두로 로스팅한 커피\n" +
+                "2.  나메리카노      | 커피넘버 투 고품질 원두로 로스팅한 커피\n" +
+                "3.  다메리카노      | 커피넘버 쓰리 고품질 원두로 로스팅한 커피\n" +
+                "4.  라메리카노      | 커피넘버 포 고품질 원두로 로스팅한 커피\n" +
+                "5.  마메리카노      | 커피넘버 파이브 고품질 원두로 로스팅한 커피\n\n" +
+                "0.  전체 메뉴로 돌아가기\n"
+    )
+}
+fun selectTeaMenu() {
+    println(
+        "아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n" +
+                "\n" +
+                "[ 1. Coffee menu ]\n" +
+                " \n" +
+                "1.  티메뉴임다      | 커피넘버 원 고품질 원두로 로스팅한 커피\n" +
+                "2.  티메뉴임다      | 커피넘버 투 고품질 원두로 로스팅한 커피\n" +
+                "3.  티메뉴임다      | 커피넘버 쓰리 고품질 원두로 로스팅한 커피\n" +
+                "4.  티메뉴임다      | 커피넘버 포 고품질 원두로 로스팅한 커피\n" +
+                "5.  티메뉴임다      | 커피넘버 파이브 고품질 원두로 로스팅한 커피\n\n" +
+                "0.  전체 메뉴로 돌아가기\n"
+    )
+}
+fun selectAdeJuiceMenu() {
+    println(
+        "아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n" +
+                "\n" +
+                "[ 1. Coffee menu ]\n" +
+                " \n" +
+                "1.  에이드냠냠      | 커피넘버 원 고품질 원두로 로스팅한 커피\n" +
+                "2.  에이드냠냠      | 커피넘버 투 고품질 원두로 로스팅한 커피\n" +
+                "3.  에이드냠냠      | 커피넘버 쓰리 고품질 원두로 로스팅한 커피\n" +
+                "4.  에이드냠냠      | 커피넘버 포 고품질 원두로 로스팅한 커피\n" +
+                "5.  에이드냠냠      | 커피넘버 파이브 고품질 원두로 로스팅한 커피\n\n" +
+                "0.  전체 메뉴로 돌아가기\n"
+    )
+}
+fun selectDessertMenu() {
+    println(
+        "아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n" +
+                "\n" +
+                "[ 1. Coffee menu ]\n" +
+                " \n" +
+                "1.  에이드냠냠      | 커피넘버 원 고품질 원두로 로스팅한 커피\n" +
+                "2.  에이드냠냠      | 커피넘버 투 고품질 원두로 로스팅한 커피\n" +
+                "3.  에이드냠냠      | 커피넘버 쓰리 고품질 원두로 로스팅한 커피\n" +
+                "4.  에이드냠냠      | 커피넘버 포 고품질 원두로 로스팅한 커피\n" +
+                "5.  에이드냠냠      | 커피넘버 파이브 고품질 원두로 로스팅한 커피\n\n" +
+                "0.  전체 메뉴로 돌아가기\n"
+    )
+}
+
+
+//제품 선택 후 펑션
+fun coffeeMenu() {
+    val coffee: Coffee? = menuList.filterIsInstance<Coffee>().firstOrNull()
+    val selectCoffee: String? = readLine()
+
+    if (coffee != null) {
+        // menuList에 <Coffee> 인덱스가 있을 때
+        when (selectCoffee?.toIntOrNull()) {
+            //readline으로 가져온 string숫자를 int로 치환한다
+            in 1..5 -> {
+                val selectedCoffee = menuList[selectCoffee!!.toInt() - 1]
+                println("${selectedCoffee.name} 준비해 드리겠습니다. ${selectedCoffee.price}원 이고 ${selectedCoffee.time}분 정도 소요됩니다.")
+            }
+            0 -> {
+                println("메뉴 선택으로 돌아가기")
+                main()
+            }
+            else -> {
+                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                selectCoffeeMenu()
+                coffeeMenu()
+            }
+        }
+    } else {
+        // menuList에 <Coffee> 인덱스가 없을 때
+        println("커피 메뉴가 없어요 ㅠㅠ")
+    }
+}
+fun TeaMenu() {
+    val tea: Tea? = menuList.filterIsInstance<Tea>().firstOrNull()
+    val selectTea: String? = readLine()
+
+    if (tea != null) {
+        // menuList에 <Coffee> 인덱스가 있을 때
+        when (selectTea?.toIntOrNull()) {
+            //readline으로 가져온 string숫자를 int로 치환한다
+            in 1..5 -> {
+                val selectedTea = menuList[selectTea!!.toInt() - 1]
+                println("${selectedTea.name} 준비해 드리겠습니다. ${selectedTea.price}원 이고 ${selectedTea.time}분 정도 소요됩니다.")
+            }
+            0 -> {
+                println("메뉴 선택으로 돌아가기")
+                main()
+            }
+            else -> {
+                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                selectTeaMenu()
+                TeaMenu()
+            }
+        }
+    } else {
+        // menuList에 <Tea> 인덱스가 없을 때
+        println("티 메뉴가 없어요 ㅠㅠ")
+    }
+}
+fun adeJuiceMenu() {
+    val adeJuice: AdeJuice? = menuList.filterIsInstance<AdeJuice>().firstOrNull()
+    val selectAdeJuice: String? = readLine()
+
+    if (adeJuice != null) {
+        // menuList에 <AdeJuice> 인덱스가 있을 때
+        when (selectAdeJuice?.toIntOrNull()) {
+            //readline으로 가져온 string숫자를 int로 치환한다
+            in 1..5 -> {
+                val selectedAdeJuice = menuList[selectAdeJuice!!.toInt() - 1]
+                println("${selectedAdeJuice.name} 준비해 드리겠습니다. ${selectedAdeJuice.price}원 이고 ${selectedAdeJuice.time}분 정도 소요됩니다.")
+            }
+            0 -> {
+                println("메뉴 선택으로 돌아가기")
+                main()
+            }
+            else -> {
+                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                selectAdeJuiceMenu()
+                adeJuiceMenu()
+            }
+        }
+    } else {
+        // menuList에 <AdeJuice> 인덱스가 없을 때
+        println("에이드/쥬스 메뉴가 없어요 ㅠㅠ")
+    }
+}
+fun dessertMenu() {
+    val dessert: Dessert? = menuList.filterIsInstance<Dessert>().firstOrNull()
+    val selectDessert: String? = readLine()
+
+    if (dessert != null) {
+        // menuList에 <Dessert> 인덱스가 있을 때
+        when (selectDessert?.toIntOrNull()) {
+            //readline으로 가져온 string숫자를 int로 치환한다
+            in 1..5 -> {
+                val selectedDessert = menuList[selectDessert!!.toInt() - 1]
+                println("${selectedDessert.name} 준비해 드리겠습니다. ${selectedDessert.price}원 이고 ${selectedDessert.time}분 정도 소요됩니다.")
+            }
+            0 -> {
+                println("메뉴 선택으로 돌아가기")
+                main()
+            }
+            else -> {
+                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                selectDessertMenu()
+                dessertMenu()
+            }
+        }
+    } else {
+        // menuList에 <Dessert> 인덱스가 없을 때
+        println("디저트 메뉴가 없어요 ㅠㅠ")
+    }
+}
+
+fun main(){
+    wellcomeMenu()
+    printMenu()
+    selectMenu()
+}
+
+
+
+
+
+/* 메모1
+인터페이스는 반드시 구현되어야 하는 기능을 선언하여 강제한다
+가령 핫/아이스 선택, 쿠폰코드 입력
+
+추상클래스로 일부 기능은 공유하되 자세한 기능은 하위 클레스에서 한다
+
+일단 기존의 틀은 그대로 유지하되 반복되는 것을 하나의 클래스로 묶는 것을 목표로 한다
+
+목표 : Class drinkMenu로 음료 통합
+*/
+
+/* 3번째에 사용해 볼 것, 클래스의 추상화?
+
+abstract class Drink(val name: String, val time: Int, val price: Int) {
+    abstract fun coffeeMenu()
+    abstract fun selectTea()
+    abstract fun selectAdeJuice()
+    abstract fun selectDessert()
+
+class Coffee: Drink(){
+    fun coffeeMenu()
+}
+
+//여러 변수를 array로 생성
+open var drinks: Array<Drink?> = arrayOfNulls(5)
+
+*/
