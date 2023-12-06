@@ -1,8 +1,8 @@
 package com.example.mgckiosk
 
-import com.example.mgckiosk.Menu.Beverage.Beverage
-import com.example.mgckiosk.Menu.Beverage.Coffee
-import com.example.mgckiosk.Menu.MGCMenu
+import com.example.mgckiosk.menu.MGCMenu
+import com.example.mgckiosk.menu.beverage.coffee.Americano
+import com.example.mgckiosk.menu.beverage.coffee.Coffee
 
 //ㅤ/ /<-특수공백문자있음
 
@@ -26,19 +26,6 @@ import com.example.mgckiosk.Menu.MGCMenu
 // TeaPleasure -> 메가엠지씨티플레저블루밍캐모마일 메가엠지씨티플레저프루티루이보스 메가엠지씨티플레저스위트히비스커스
 
 fun main() {
-    val menuList = ArrayList<AbstractMenu>()
-//    menuList.add(MGCMenu())
-//    menuList.forEach {
-//        when(it) {
-//            is MGCMenu -> {
-//                it.displayInfo()
-//
-//            }
-//            is Coffee -> {
-//                it
-//            }
-//        }
-//    }
     val mgcMenu = MGCMenu()
     mgcMenu.displayInfo()
 }

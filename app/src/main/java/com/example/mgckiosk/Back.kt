@@ -1,10 +1,20 @@
 package com.example.mgckiosk
 
-import com.example.mgckiosk.Menu.MGCMenu
-import com.example.mgckiosk.Menu.Beverage.*
-import com.example.mgckiosk.Menu.Food.*
-import com.example.mgckiosk.Menu.Product.*
-
+import com.example.mgckiosk.menu.MGCMenu
+import com.example.mgckiosk.menu.beverage.*
+import com.example.mgckiosk.menu.beverage.coffee.Coffee
+import com.example.mgckiosk.menu.food.*
+import com.example.mgckiosk.menu.product.*
+import com.example.mgckiosk.menu.beverage.adeJuice.AdeJuice
+import com.example.mgckiosk.menu.beverage.smoothieFrappe.SmoothieFrappe
+import com.example.mgckiosk.menu.beverage.tea.Tea
+import com.example.mgckiosk.menu.food.bread.Bread
+import com.example.mgckiosk.menu.food.cake.Cake
+import com.example.mgckiosk.menu.food.cookiemacaron.CookieMacaron
+import com.example.mgckiosk.menu.product.mug.Mug
+import com.example.mgckiosk.menu.product.stickcoffee.StickCoffee
+import com.example.mgckiosk.menu.product.teapleasure.TeaPleasure
+import com.example.mgckiosk.menu.product.tumbler.Tumbler
 
 interface Back {
     fun back(menuPage:AbstractMenu) {
