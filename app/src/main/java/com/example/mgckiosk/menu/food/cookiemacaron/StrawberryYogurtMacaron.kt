@@ -8,6 +8,6 @@ class StrawberryYogurtMacaron: AbstractMenu() {
     val description: String = "딸기요거트 스무디를 연상하게 하는 상큼한 마카롱"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

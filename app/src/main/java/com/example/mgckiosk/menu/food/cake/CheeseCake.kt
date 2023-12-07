@@ -8,6 +8,6 @@ class CheeseCake: AbstractMenu() {
     val description: String = "진한 치즈의 맛을 달콤하고 부드럽게 느낄 수 있는 케이크"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

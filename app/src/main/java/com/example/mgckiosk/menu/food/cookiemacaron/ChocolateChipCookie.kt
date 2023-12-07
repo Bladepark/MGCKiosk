@@ -8,6 +8,6 @@ class ChocolateChipCookie: AbstractMenu() {
     val description: String = "진한 초콜릿칩을 넣어 만든 메가MGC커피 시그니처 쿠키"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

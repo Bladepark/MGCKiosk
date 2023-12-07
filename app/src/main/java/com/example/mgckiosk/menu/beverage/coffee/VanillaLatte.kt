@@ -8,6 +8,6 @@ class VanillaLatte: AbstractMenu() {
     val description: String = "바닐라의 짙은 향과 풍부한 폼 밀크의 조화가 인상적인 달콤한 라떼"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

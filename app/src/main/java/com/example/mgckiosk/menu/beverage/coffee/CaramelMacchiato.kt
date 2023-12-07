@@ -8,6 +8,6 @@ class CaramelMacchiato: AbstractMenu() {
     val description: String = "폼 밀크 속에 진한 에스프레소와 달콤한 카라멜을 가미해 부드럽게 즐기는 커피"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

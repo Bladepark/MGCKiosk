@@ -8,6 +8,6 @@ class CherryCoke : AbstractMenu() {
     val description: String = "체리의 새콤함과 청량감을 동시에 즐길 수 있는 환상적인 에이드"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

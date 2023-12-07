@@ -8,6 +8,6 @@ class CornMayoBread: AbstractMenu() {
     val description: String = "톡톡 터지는 옥수수콘이 매력적인 와앙 큰 콘치즈마요 보름달빵"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

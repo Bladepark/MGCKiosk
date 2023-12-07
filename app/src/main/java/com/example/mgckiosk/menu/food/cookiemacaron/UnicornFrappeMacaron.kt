@@ -8,6 +8,6 @@ class UnicornFrappeMacaron: AbstractMenu() {
     val description: String = "메가커피 인기 음료인 유니콘 프라페를 모티브로 만든 매지컬 비주얼 마카롱"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

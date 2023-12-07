@@ -8,6 +8,6 @@ class BasicTumbler: AbstractMenu() {
     val description: String = "기능성과 비주얼을 다잡은 메가MGC커피 텀블러"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

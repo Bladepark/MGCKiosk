@@ -8,6 +8,6 @@ class PizzaBread: AbstractMenu() {
     val description: String = "한끼로도 든든한 중독적인 추억의 와앙 큰 소시지 피자빵"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

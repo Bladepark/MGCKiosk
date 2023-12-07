@@ -8,6 +8,6 @@ class Croissant: AbstractMenu() {
     val description: String = "바삭하고 부드러운 식감에 고소한 버터향을 가득 담은 베이커리 메뉴"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

@@ -8,6 +8,6 @@ class MegaChocolateMacaron: AbstractMenu() {
     val description: String = "메가커피 시그니처 음료 메가초코를 모티브로 만든 초코맛 마카롱"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

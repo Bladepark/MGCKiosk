@@ -21,20 +21,16 @@ interface Back {
     fun back(menuPage:AbstractMenu) {
         when(menuPage) {
             is Beverage, is Food, is Product -> {
-                val mgcMenu = MGCMenu()
-                mgcMenu.displayInfo()
+                MenuList.menuList.find { it is MGCMenu }?.displayInfo()
             }
             is Coffee, is AdeJuice, is SmoothieFrappe, is Tea -> {
-                val beverage = Beverage()
-                beverage.displayInfo()
+                MenuList.menuList.find { it is Beverage }?.displayInfo()
             }
             is Bread, is CookieMacaron, is Cake -> {
-                val food = Food()
-                food.displayInfo()
+                MenuList.menuList.find { it is Food }?.displayInfo()
             }
             is Mug, is Tumbler, is StickCoffee, is TeaPleasure -> {
-                val product = Product()
-                product.displayInfo()
+                MenuList.menuList.find { it is Product }?.displayInfo()
             }
         }
     }

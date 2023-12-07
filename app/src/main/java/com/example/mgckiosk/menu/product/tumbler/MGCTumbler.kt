@@ -8,6 +8,6 @@ class MGCTumbler: AbstractMenu() {
     val description: String = "뛰어난 보온보냉력으로 하루종일 그대로, MGC 데일리 텀블러"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

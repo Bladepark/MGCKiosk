@@ -1,6 +1,6 @@
 package com.example.mgckiosk
 
-interface SelectMenuItem : IsValidMenuNumber, AddToCart{
+interface SelectMenuItem : IsValidMenuNumber{
     fun selectMenuItem(menuPage:AbstractMenu, menuItem: AbstractMenu) {
         menuItem.displayInfo()
         println(
@@ -8,10 +8,13 @@ interface SelectMenuItem : IsValidMenuNumber, AddToCart{
             "1. 확인      2. 취소"
         )
         val menuNumber = isValidMenuNumber(2)
-        if (menuNumber == 1) addToCart(menuItem)
+        if (menuNumber == 1) {
+            OrderList.orderList.add(menuItem)
+            println("${menuItem.name}가 장바구니에 추가되었습니다.")
+        }
         else {
             println("메뉴 추가를 취소하였습니다.")
-            menuPage.displayInfo()
         }
+        menuPage.displayInfo()
     }
 }

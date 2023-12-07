@@ -1,9 +1,14 @@
 package com.example.mgckiosk.menu
 
+import android.view.Menu
+import androidx.core.util.toRange
 import com.example.mgckiosk.AbstractMenu
+import com.example.mgckiosk.MenuList
+import com.example.mgckiosk.OrderList
 import com.example.mgckiosk.menu.beverage.Beverage
 import com.example.mgckiosk.menu.food.Food
 import com.example.mgckiosk.menu.product.Product
+import java.lang.Math.random
 
 import kotlin.system.exitProcess
 
@@ -23,48 +28,51 @@ class MGCMenu() : AbstractMenu(){
         )
         var menuNumber = isValidMenuNumber(6)
         when (menuNumber) {
-            1 -> {
-                val beverage = Beverage()
-                beverage.displayInfo()
-//                menuList.find { it == Beverage() }!!.displayInfo()
-            }
-            2 -> {
-                val food = Food()
-                food.displayInfo()
-            }
-            3 -> {
-                val product = Product()
-                product.displayInfo()
-            }
+            1 -> {MenuList.menuList.find { it is Beverage }?.displayInfo()}
+            2 -> {MenuList.menuList.find { it is Food }?.displayInfo()}
+            3 -> {MenuList.menuList.find { it is Product }?.displayInfo()}
             4 -> {println("프로그램을 종료합니다."); exitProcess(0)}
-//        현재 잔액은 5.5W 으로 1.4W이 부족해서 주문할 수 없습니다.
             5 -> {
-                if(orderList.isEmpty()){
+                if(OrderList.orderList.isEmpty()){
                     println("장바구니가 비어있습니다. 메뉴를 추가한 후에 주문해주세요.")
+                    MenuList.menuList.find { it is MGCMenu }?.displayInfo()
                 }else {
                     println(
                         "아래와 같이 주문 하시겠습니까?\n\n" +
-                                "[Orders]\n"
+                        "[Orders]"
                     )
-                    orderList.forEach { println("${it.displayInfo()}") }
-                    println("\n[Total]\n")
-                    var totalPrice = orderList.map {
-                        it.price
-                    }.sum()
+                    OrderList.orderList.forEach {it.displayInfo()}
+                    println("[Total]")
+                    var totalPrice:Double = OrderList.orderList.map {it.price}.sum()
                     println("￦ $totalPrice")
                     println("\n\n1. 주문     2. 메뉴판")
                     var menuNumber = isValidMenuNumber(2)
                     when(menuNumber) {
                         1 -> {
-
+                            val myMoney:Double = (50..100).random().toDouble()
+                            if(myMoney < totalPrice) {
+                                println("현재 잔액은 $myMoney￦으로 ${totalPrice-myMoney}￦이 부족해서 주문할 수 없습니다.")
+                                println("진행중인 주문을 취소하고 다시 이용해주세요.")
+                                MenuList.menuList.find { it is MGCMenu }?.displayInfo()
+                            }else {
+                                println("결제를 완료했습니다. 준비가 되면 진동벨로 알려드리겠습니다.")
+                                OrderList.orderList.clear()
+                                MenuList.menuList.find { it is MGCMenu }?.displayInfo()
+                            }
                         }
-                        2 -> {}
+                        2 -> {MenuList.menuList.find { it is MGCMenu }?.displayInfo()}
                     }
                 }
             }
             6 -> {
-                orderList.clear()
+                if (OrderList.orderList.isEmpty()){
+                    println("장바구니가 이미 비어있습니다. 메뉴를 추가한 후에 주문해주세요.")
+                    MenuList.menuList.find { it is MGCMenu }?.displayInfo()
+                }else {
+                OrderList.orderList.clear()
                 println("장바구니를 비웠습니다. 메뉴를 추가한 후 다시 주문해주세요.")
+                MenuList.menuList.find { it is MGCMenu }?.displayInfo()
+                }
             }
         }
     }

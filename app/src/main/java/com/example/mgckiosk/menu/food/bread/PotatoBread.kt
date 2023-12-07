@@ -8,6 +8,6 @@ class PotatoBread: AbstractMenu() {
     val description: String = "쫄깃한 빵 속 포슬포슬한 감자를 가득 담아낸 베이커리 메뉴"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

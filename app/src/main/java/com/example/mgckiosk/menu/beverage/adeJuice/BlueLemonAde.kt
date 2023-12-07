@@ -8,6 +8,6 @@ class BlueLemonAde : AbstractMenu() {
     val description: String = "레몬에이드의 상큼한 청량감에 블루큐라소의 진한 향미를 더한 에이드"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

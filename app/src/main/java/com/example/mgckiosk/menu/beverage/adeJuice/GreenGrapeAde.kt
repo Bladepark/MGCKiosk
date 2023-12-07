@@ -8,6 +8,6 @@ class GreenGrapeAde : AbstractMenu() {
     val description: String = "산뜻한 청포도와 상쾌한 탄산의 달달한 조화가 인상적인 에이드"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

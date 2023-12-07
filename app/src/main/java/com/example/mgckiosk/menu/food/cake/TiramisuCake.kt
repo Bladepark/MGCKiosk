@@ -8,6 +8,6 @@ class TiramisuCake: AbstractMenu() {
     val description: String = "부드러운 치즈 맛과 코코아의 조화로운 향으로 호불호 없이 즐기는 케이크"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }

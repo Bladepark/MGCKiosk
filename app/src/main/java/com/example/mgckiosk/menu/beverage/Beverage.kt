@@ -7,6 +7,7 @@ import com.example.mgckiosk.menu.beverage.smoothieFrappe.SmoothieFrappe
 import com.example.mgckiosk.menu.beverage.tea.Tea
 
 class Beverage() : AbstractMenu() {
+
     override fun displayInfo() {
         println(
             "[Beverage MENU]\n" +

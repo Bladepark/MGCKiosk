@@ -8,6 +8,6 @@ class MGCMug: AbstractMenu() {
     val description: String = "귀여운 디테일로 소장가치를 더한 대용량 머그"
 
     override fun displayInfo() {
-        println("$name        | ￦ $price |  $description\n")
+        println("$name        | ￦ $price |  $description")
     }
 }
