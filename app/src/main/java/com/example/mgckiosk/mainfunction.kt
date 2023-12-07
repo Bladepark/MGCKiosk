@@ -1,3 +1,7 @@
+
+//fun 파일 분리
+//사용위치 : 키오스크4
+
 package com.example.mgckiosk
 
 import kotlin.random.Random
@@ -18,6 +22,7 @@ fun selectMenu() {
     val adeJuiceList: List<AdeJuice> = menuList.filterIsInstance<AdeJuice>()
     val dessertList: List<Dessert> = menuList.filterIsInstance<Dessert>()
     //각 항목별 하나씩 있던 것을 fun 초기에 불러와 코드를 줄이고 보기 좋게 함
+    //manuList의 여러 요소 중 filterIsInstance 함수로 <Coffee>만 필터링 하고 coffeeList의 List에 <Coffee>타입 외에는 에러를 발생한다
 
     val selectMenu: String? = readLine()
 
@@ -247,6 +252,7 @@ fun jangBaGuNiOrder(){
     if (jangBaGuNiList.isNotEmpty()){
         var finalPrice = 0
         jangBaGuNiList.forEachIndexed {index, item ->
+            //jangBaGuNiList의 요소를 forEachIndexed 함수로 각기 다른 요소를 item 이름으로 일원화 하여 출력
             println("${index + 1}. ${item.name} - ${item.price}원, 소요 시간: ${item.time}분")
             finalPrice += item.price
             //+= : 모두 덧셈 후 결과값을 finalPrice에 대입한다
@@ -284,6 +290,7 @@ fun jangBaGuNiRemove(){
     if (jangBaGuNiList.isNotEmpty()){
         var finalPrice = 0
         jangBaGuNiList.forEachIndexed {index, item ->
+            //jangBaGuNiList의 요소를 forEachIndexed 함수로 각기 다른 요소를 item 이름으로 일원화 하여 출력
             println("${index + 1}. ${item.name} - ${item.price}원, 소요 시간: ${item.time}분")
             finalPrice += item.price
             //+= : 모두 덧셈 후 결과값을 finalPrice에 대입한다

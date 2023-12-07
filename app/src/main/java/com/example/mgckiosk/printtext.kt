@@ -1,6 +1,6 @@
 
 //텍스트 출력 fun 파일 분리
-//사용위치 : 키오스크3
+//사용위치 : 키오스크3, 4
 
 package com.example.mgckiosk
 
@@ -31,7 +31,7 @@ fun printMenu() {
         "아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n" +
                 "\n" +
                 "[ MEGA Coffee menu ]\n" +
-                "1.  Coffee       | 에티오피아의 카프카의 고품질 원두로 로스팅한 커피\n" +
+                "1.  Coffee       | 깊고 부드러운 맛의 비밀, 행복을 선사하는 커피\n" +
                 "2.  Tea          | 오스트레일리아 유명 티 메이커 [T2] Collaboration\n" +
                 "3.  Ade/Juice    | 매일 아침 시장에서 공수해 오는 신선한 과일로 제조한 음료\n" +
                 "4.  Dessert      | [Le Cordon Bleu]를 수석 졸업 김앤장 셰프의 걸작\n" +
