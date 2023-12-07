@@ -2,8 +2,6 @@ package com.example.mgckiosk.action
 
 import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.exception.IllegalArgumentException
-import com.example.mgckiosk.menu.level1.Beverage
-
 class NumberOfItems {
     fun numberOfItems(className: AbstractMenu, info: List<Triple<String, Double, String>>, category: Int) {
         if (category == info.size+1) {
