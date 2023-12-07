@@ -18,7 +18,7 @@ class NumberOfItems {
             )
             println("개수를 입력하세요. (최대 수량: 100개)")
             var unit = IllegalArgumentException(100).selectNumber()
-            AddToBasket().addToBasket(className, info, category, unit)
+            AddToBasket().addToBasket(className, this, info, category, unit)
         }
     }
 

@@ -1,9 +1,10 @@
 package com.example.mgckiosk
 
-import com.example.mgckiosk.menu.Main
+import com.example.mgckiosk.menu1.Main2
 import com.example.mgckiosk.exception.IllegalArgumentException
 
 fun main() {
+
     println("3조 파이팅")
 
     println("[ 홈페이지 ]")
@@ -11,7 +12,7 @@ fun main() {
 
     IllegalArgumentException(0).selectNumber() // 메인 화면으로 이동
 
-    Main(0).displayInfo()        // 카테고리 화면으로 이동
+    Main2(0).displayInfo()        // 카테고리 화면으로 이동
 
 }
 /**
