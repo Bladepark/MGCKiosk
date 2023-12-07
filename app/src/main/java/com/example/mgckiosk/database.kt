@@ -43,34 +43,21 @@ data class Dessert(override val name: String, override val price: Int, override 
 ) : AllMegaMenu(name, price, time, termo)
 
 //장바구니 비어있는 리스트인데 추가/삭제 가능
-//음~ 망시따 마트 다녀오셨서요?
-/*
-리스트 추가
-fun main(){
-    val addList = AllMegaMenu("앙녕",2342,4,null)
-    jangBaGuNiList.add(addList)
-}
-리스트 한 개 제거
-jangBaGuNiList.remove(인덱스 번호)
-
-리스트 전체 제거
-jangBaGuNiList.clear()
-*/
 val jangBaGuNiList:MutableList<AllMegaMenu> = mutableListOf()
 
-//데이터를 줄줄이 집어넣어도 카테고리별 sort 하기 때문에 순서대로 너으면 귀차느니깐 아무럿개나 쓰쟈
+//termo1,2로 나눠서 기준을 잡을 예정
 val menuList: List<AllMegaMenu> = listOf(
-    Coffee("에스프레소", 1500, 6, null),
-    Coffee("아메리카노", 2000, 6, null),
-    Coffee("왕할메가커피", 3500, 6, null),
-    Coffee("카라멜마끼아또", 3700, 6, null),
-    Coffee("바닐라라떼", 3400, 6, null),
+    Coffee("에스프레소", 1500, 6, "맛좋은 에스프레소"),
+    Coffee("아메리카노", 2000, 6, "ICE"),
+    Coffee("왕할메가커피", 3500, 6, "ICE"),
+    Coffee("카라멜마끼아또", 3700, 6, "ICE"),
+    Coffee("바닐라라떼", 3400, 6, "ICE"),
 
     Tea("녹차", 3000, 5, null),
-    Tea("얼그레이", 3000, 5, null),
+    Tea("얼그레이", 3000, 5, "ICE"),
     Tea("캐모마일", 3000, 5, null),
     Tea("사과유자차", 3000, 5, null),
-    Tea("허니자몽블랙티", 3000, 5, null),
+    Tea("허니자몽블랙티", 3000, 5, "ICE"),
 
     AdeJuice("메가에이드", 3900, 6, null),
     AdeJuice("블루레몬에이드", 3500, 6, null),
