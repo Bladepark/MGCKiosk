@@ -1,16 +1,16 @@
-package com.example.mgckiosk.menu.bakery.sub
+package com.example.mgckiosk.menu.product
 
 import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.action.NumberOfItems
 import com.example.mgckiosk.exception.IllegalArgumentException
 
-class Cake(override var category: Int) : AbstractMenu() {
+class StickCoffee(override var category: Int) : AbstractMenu() {
     override fun displayInfo() {
-        var info = cake
+        var info = stickCoffee
         if (category == -1) {
             category = 0
         } else {
-            println("[ 케이크 상세 메뉴 ]")
+            println("[ 스틱 커피 상세 메뉴 ]")
             println("")
 
             for (i in info.indices) {
@@ -19,7 +19,7 @@ class Cake(override var category: Int) : AbstractMenu() {
             println("${info.size+1}. 뒤로가기")
             println("0. 종료하기")
 
-            category = IllegalArgumentException(info.size).selectNumber()
+            category = IllegalArgumentException(info.size+1).selectNumber()
             NumberOfItems().numberOfItems(this, info, category)
         }
     }

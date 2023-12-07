@@ -1,11 +1,10 @@
 package com.example.mgckiosk.exception
 
-import com.example.mgckiosk.abs.SelectNumber
 import java.lang.NumberFormatException
 
-class IllegalArgumentException(optionNumber: Int) : SelectNumber(optionNumber) {
-    override var optionNum = optionNumber
-    override fun selectNumber():Int {
+class IllegalArgumentException(optionNumber: Int) {
+    var optionNum = optionNumber
+    fun selectNumber():Int {
         var selectMenu = readLine()!!.toInt()
         try {
 

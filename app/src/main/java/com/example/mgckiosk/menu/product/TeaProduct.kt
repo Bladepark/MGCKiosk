@@ -1,4 +1,4 @@
-package com.example.mgckiosk.menu.product.sub
+package com.example.mgckiosk.menu.product
 
 import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.action.NumberOfItems
@@ -19,7 +19,7 @@ class TeaProduct(override var category: Int) : AbstractMenu() {
             println("${info.size+1}. 뒤로가기")
             println("0. 종료하기")
 
-            category = IllegalArgumentException(info.size).selectNumber()
+            category = IllegalArgumentException(info.size+1).selectNumber()
             NumberOfItems().numberOfItems(this, info, category)
         }
     }

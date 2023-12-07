@@ -19,7 +19,7 @@ class Main(override var category: Int) : AbstractMenu(), GoBackOrEnd {
             1 -> Beverage(category).displayInfo()
             2 -> Bakery(category).displayInfo()
             3 -> Product(category).displayInfo()
-            4 -> main()
+            4 -> Main(0).displayInfo()
             0 -> println("프로그램을 종료합니다.")
         }
     }

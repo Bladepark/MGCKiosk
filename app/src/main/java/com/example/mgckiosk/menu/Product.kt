@@ -3,10 +3,11 @@ package com.example.mgckiosk.menu
 import com.example.mgckiosk.exception.IllegalArgumentException
 import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.`interface`.GoBackOrEnd
-import com.example.mgckiosk.menu.product.ProductMugCup
-import com.example.mgckiosk.menu.product.ProductTumbler
-import com.example.mgckiosk.menu.product.ProductCoffeeStick
-import com.example.mgckiosk.menu.product.ProductTea
+import com.example.mgckiosk.menu.Main
+import com.example.mgckiosk.menu.product.MugCup
+import com.example.mgckiosk.menu.product.StickCoffee
+import com.example.mgckiosk.menu.product.TeaProduct
+import com.example.mgckiosk.menu.product.Tumbler
 
 class Product(override var category: Int) : AbstractMenu(), GoBackOrEnd {
     override fun displayInfo() {
@@ -18,10 +19,10 @@ class Product(override var category: Int) : AbstractMenu(), GoBackOrEnd {
             category = IllegalArgumentException(5).selectNumber()
         }
         when (category) {
-            1 -> ProductMugCup(0).displayInfo()
-            2 -> ProductTumbler(0).displayInfo()
-            3 -> ProductCoffeeStick(0).displayInfo()
-            4 -> ProductTea(0).displayInfo()
+            1 -> MugCup(0).displayInfo()
+            2 -> Tumbler(0).displayInfo()
+            3 -> StickCoffee(0).displayInfo()
+            4 -> TeaProduct(0).displayInfo()
             5 -> Main(0).displayInfo()
             0 -> println("프로그램을 종료합니다.")
         }

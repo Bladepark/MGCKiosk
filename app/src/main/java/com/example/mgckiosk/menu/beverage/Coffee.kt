@@ -6,7 +6,7 @@ import com.example.mgckiosk.menu.Beverage
 import com.example.mgckiosk.menu.beverage.sub.HotCoffee
 import com.example.mgckiosk.menu.beverage.sub.IcedCoffee
 
-class BeverageCoffee(override var category: Int) : AbstractMenu() {
+class Coffee(override var category: Int) : AbstractMenu() {
 
     override fun displayInfo() {
         if (category == -1) {
@@ -22,14 +22,11 @@ class BeverageCoffee(override var category: Int) : AbstractMenu() {
                 HotCoffee(0).displayInfo()
                 goBackOrEnd(this)
             }
-
             2 -> {
                 IcedCoffee(0).displayInfo()
                 goBackOrEnd(this)
             }
-
             3 -> Beverage(0).displayInfo()
-
         }
     }
 }

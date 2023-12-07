@@ -19,7 +19,7 @@ class IcedCoffee(override var category: Int) : AbstractMenu() {
             println("${info.size+1}. 뒤로가기")
             println("0. 종료하기")
 
-            category = IllegalArgumentException(info.size).selectNumber()
+            category = IllegalArgumentException(info.size+1).selectNumber()
             NumberOfItems().numberOfItems(this, info, category)
         }
     }
