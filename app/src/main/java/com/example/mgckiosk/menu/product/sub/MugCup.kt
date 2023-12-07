@@ -1,4 +1,4 @@
-package com.example.mgckiosk.menu.level3
+package com.example.mgckiosk.menu.product.sub
 
 import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.action.NumberOfItems

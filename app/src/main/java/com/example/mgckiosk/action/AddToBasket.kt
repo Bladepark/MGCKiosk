@@ -3,7 +3,6 @@ package com.example.mgckiosk.action
 import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.exception.IllegalArgumentException
 import com.example.mgckiosk.main
-import com.example.mgckiosk.menu.level3.AdeJuice
 
 class AddToBasket {
     fun addToBasket(className: AbstractMenu, info: List<Triple<String, Double, String>>, category: Int, unit: Int) {

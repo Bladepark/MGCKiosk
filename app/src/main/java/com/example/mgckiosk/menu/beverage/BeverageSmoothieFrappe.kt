@@ -1,7 +1,7 @@
-package com.example.mgckiosk.menu.level2
+package com.example.mgckiosk.menu.beverage
 
-import com.example.mgckiosk.menu.level3.SmoothieFrappe
 import com.example.mgckiosk.abs.AbstractMenu
+import com.example.mgckiosk.menu.beverage.sub.SmoothieFrappe
 
 class BeverageSmoothieFrappe(override var category: Int) : AbstractMenu() {
     override fun displayInfo() {

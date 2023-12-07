@@ -5,9 +5,6 @@ import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.main
 import com.example.mgckiosk.exception.IllegalArgumentException
 import com.example.mgckiosk.`interface`.GoBackOrEnd
-import com.example.mgckiosk.menu.level1.Bakery
-import com.example.mgckiosk.menu.level1.Beverage
-import com.example.mgckiosk.menu.level1.Product
 
 class Main(override var category: Int) : AbstractMenu(), GoBackOrEnd {
     override fun displayInfo() {

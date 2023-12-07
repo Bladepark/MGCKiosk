@@ -1,7 +1,7 @@
-package com.example.mgckiosk.menu.level2
+package com.example.mgckiosk.menu.product
 
-import com.example.mgckiosk.menu.level3.TeaProduct
 import com.example.mgckiosk.abs.AbstractMenu
+import com.example.mgckiosk.menu.product.sub.TeaProduct
 
 class ProductTea(override var category: Int) : AbstractMenu() {
     override fun displayInfo() {

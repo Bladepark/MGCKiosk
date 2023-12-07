@@ -1,6 +1,6 @@
-package com.example.mgckiosk.menu.level2
+package com.example.mgckiosk.menu.product
 
-import com.example.mgckiosk.menu.level3.Tumbler
+import com.example.mgckiosk.menu.product.sub.Tumbler
 import com.example.mgckiosk.abs.AbstractMenu
 
 class ProductTumbler(override var category: Int) : AbstractMenu() {

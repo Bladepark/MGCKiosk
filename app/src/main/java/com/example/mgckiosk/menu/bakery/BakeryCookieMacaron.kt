@@ -1,6 +1,6 @@
-package com.example.mgckiosk.menu.level2
+package com.example.mgckiosk.menu.bakery
 
-import com.example.mgckiosk.menu.level3.CookieMacaron
+import com.example.mgckiosk.menu.bakery.sub.CookieMacaron
 import com.example.mgckiosk.abs.AbstractMenu
 
 class BakeryCookieMacaron(override var category: Int) : AbstractMenu() {

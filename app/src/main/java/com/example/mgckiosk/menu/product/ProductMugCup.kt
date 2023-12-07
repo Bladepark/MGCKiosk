@@ -1,6 +1,6 @@
-package com.example.mgckiosk.menu.level2
+package com.example.mgckiosk.menu.product
 
-import com.example.mgckiosk.menu.level3.MugCup
+import com.example.mgckiosk.menu.product.sub.MugCup
 import com.example.mgckiosk.abs.AbstractMenu
 
 class ProductMugCup(override var category: Int) : AbstractMenu() {

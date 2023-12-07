@@ -1,16 +1,16 @@
-package com.example.mgckiosk.menu.level3
+package com.example.mgckiosk.menu.bakery.sub
 
 import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.action.NumberOfItems
 import com.example.mgckiosk.exception.IllegalArgumentException
 
-class Tumbler(override var category: Int) : AbstractMenu() {
+class Cake(override var category: Int) : AbstractMenu() {
     override fun displayInfo() {
-        var info = tumbler
+        var info = cake
         if (category == -1) {
             category = 0
         } else {
-            println("[ 텀블러 상세 메뉴 ]")
+            println("[ 케이크 상세 메뉴 ]")
             println("")
 
             for (i in info.indices) {

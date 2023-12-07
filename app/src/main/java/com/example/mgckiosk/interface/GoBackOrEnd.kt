@@ -3,21 +3,21 @@ package com.example.mgckiosk.`interface`
 import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.exception.IllegalArgumentException
 import com.example.mgckiosk.main
-import com.example.mgckiosk.menu.level1.Bakery
-import com.example.mgckiosk.menu.level1.Beverage
+import com.example.mgckiosk.menu.Bakery
+import com.example.mgckiosk.menu.Beverage
 import com.example.mgckiosk.menu.Main
-import com.example.mgckiosk.menu.level1.Product
-import com.example.mgckiosk.menu.level2.BakeryBread
-import com.example.mgckiosk.menu.level2.BakeryCake
-import com.example.mgckiosk.menu.level2.BakeryCookieMacaron
-import com.example.mgckiosk.menu.level2.BeverageAdeJuice
-import com.example.mgckiosk.menu.level2.BeverageCoffee
-import com.example.mgckiosk.menu.level2.BeverageSmoothieFrappe
-import com.example.mgckiosk.menu.level2.BeverageTea
-import com.example.mgckiosk.menu.level2.ProductCoffeeStick
-import com.example.mgckiosk.menu.level2.ProductMugCup
-import com.example.mgckiosk.menu.level2.ProductTea
-import com.example.mgckiosk.menu.level2.ProductTumbler
+import com.example.mgckiosk.menu.Product
+import com.example.mgckiosk.menu.bakery.BakeryBread
+import com.example.mgckiosk.menu.bakery.BakeryCake
+import com.example.mgckiosk.menu.bakery.BakeryCookieMacaron
+import com.example.mgckiosk.menu.beverage.BeverageAdeJuice
+import com.example.mgckiosk.menu.beverage.BeverageCoffee
+import com.example.mgckiosk.menu.beverage.BeverageSmoothieFrappe
+import com.example.mgckiosk.menu.beverage.BeverageTea
+import com.example.mgckiosk.menu.product.ProductCoffeeStick
+import com.example.mgckiosk.menu.product.ProductMugCup
+import com.example.mgckiosk.menu.product.ProductTea
+import com.example.mgckiosk.menu.product.ProductTumbler
 
 interface GoBackOrEnd {
     fun goBackOrEnd(from: AbstractMenu) {

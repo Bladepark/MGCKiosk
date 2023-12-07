@@ -1,6 +1,6 @@
-package com.example.mgckiosk.menu.level2
+package com.example.mgckiosk.menu.bakery
 
-import com.example.mgckiosk.menu.level3.Bread
+import com.example.mgckiosk.menu.bakery.sub.Bread
 import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.`interface`.GoBackOrEnd
 

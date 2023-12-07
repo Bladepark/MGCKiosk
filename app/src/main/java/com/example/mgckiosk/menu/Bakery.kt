@@ -1,12 +1,11 @@
-package com.example.mgckiosk.menu.level1
+package com.example.mgckiosk.menu
 
 import com.example.mgckiosk.abs.AbstractMenu
-import com.example.mgckiosk.menu.level2.BakeryBread
+import com.example.mgckiosk.menu.bakery.BakeryBread
 import com.example.mgckiosk.exception.IllegalArgumentException
 import com.example.mgckiosk.`interface`.GoBackOrEnd
-import com.example.mgckiosk.menu.Main
-import com.example.mgckiosk.menu.level2.BakeryCookieMacaron
-import com.example.mgckiosk.menu.level2.BakeryCake
+import com.example.mgckiosk.menu.bakery.BakeryCookieMacaron
+import com.example.mgckiosk.menu.bakery.BakeryCake
 
 class Bakery(override var category:Int) : AbstractMenu(), GoBackOrEnd {
     override fun displayInfo() {
