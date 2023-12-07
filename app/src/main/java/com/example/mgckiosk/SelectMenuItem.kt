@@ -9,6 +9,9 @@ interface SelectMenuItem : IsValidMenuNumber, AddToCart{
         )
         val menuNumber = isValidMenuNumber(2)
         if (menuNumber == 1) addToCart(menuItem)
-        else println("메뉴 추가를 취소하였습니다.");menuPage.displayInfo()
+        else {
+            println("메뉴 추가를 취소하였습니다.")
+            menuPage.displayInfo()
+        }
     }
 }

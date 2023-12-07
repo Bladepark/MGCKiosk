@@ -1,8 +1,6 @@
 package com.example.mgckiosk.menu.beverage.adeJuice
 
 import com.example.mgckiosk.AbstractMenu
-import com.example.mgckiosk.menu.beverage.Beverage
-import com.example.mgckiosk.menu.beverage.coffee.Espresso
 
 class AdeJuice() : AbstractMenu(){
     override fun displayInfo() {

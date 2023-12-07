@@ -1,9 +1,6 @@
 package com.example.mgckiosk
 
 import com.example.mgckiosk.menu.MGCMenu
-import com.example.mgckiosk.menu.beverage.coffee.Americano
-import com.example.mgckiosk.menu.beverage.coffee.Coffee
-
 //ㅤ/ /<-특수공백문자있음
 
 // 메가 커피 키오스크 팀 과제 3조 파이팅!!

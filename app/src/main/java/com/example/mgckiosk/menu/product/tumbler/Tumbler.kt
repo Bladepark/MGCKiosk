@@ -1,7 +1,6 @@
 package com.example.mgckiosk.menu.product.tumbler
 
 import com.example.mgckiosk.AbstractMenu
-import com.example.mgckiosk.menu.product.mug.MGCMug
 
 class Tumbler() : AbstractMenu() {
     override fun displayInfo() {
