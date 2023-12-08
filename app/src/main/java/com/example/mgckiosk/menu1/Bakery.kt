@@ -5,12 +5,8 @@ import Cake
 import CookieMacaron
 import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.exception.IllegalArgumentException
-import com.example.mgckiosk.`interface`.GoBackOrEnd
-import com.example.mgckiosk.menu1.bakery.Bread2
-import com.example.mgckiosk.menu1.bakery.Cake2
-import com.example.mgckiosk.menu1.bakery.CookieMacaron2
 
-class Bakery(override var category:Int) : AbstractMenu(), GoBackOrEnd {
+class Bakery(override var category:Int) : AbstractMenu() {
     override fun displayInfo() {
         if (category == -1) {
             category = 0

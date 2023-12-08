@@ -4,13 +4,12 @@ import com.example.mgckiosk.exception.IllegalArgumentException
 import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.action.ProceedToCheckOut
 import com.example.mgckiosk.action.ShowBasket
-import com.example.mgckiosk.`interface`.GoBackOrEnd
 import com.example.mgckiosk.menu1.product.MugCup1
 import com.example.mgckiosk.menu1.product.StickCoffee2
 import com.example.mgckiosk.menu1.product.TeaProduct2
 import com.example.mgckiosk.menu1.product.Tumbler2
 
-class Product2(override var category: Int) : AbstractMenu(), GoBackOrEnd {
+class Product2(override var category: Int) : AbstractMenu(){
     override fun displayInfo() {
         if (category == -1) {
             category = 6

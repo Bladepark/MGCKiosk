@@ -1,8 +1,7 @@
 package com.example.mgckiosk.abs
 
-import com.example.mgckiosk.`interface`.GoBackOrEnd
 
-abstract class AbstractMenu: GoBackOrEnd {
+abstract class AbstractMenu {
     abstract var category: Int
     // Beverage ----------------------------------------------------------------------------------------
     // 커피 핫

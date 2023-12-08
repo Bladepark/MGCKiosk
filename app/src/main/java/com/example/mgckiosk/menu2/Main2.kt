@@ -5,9 +5,8 @@ import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.action.ProceedToCheckOut
 import com.example.mgckiosk.action.ShowBasket
 import com.example.mgckiosk.exception.IllegalArgumentException
-import com.example.mgckiosk.`interface`.GoBackOrEnd
 
-class Main2(override var category: Int) : AbstractMenu(), GoBackOrEnd {
+class Main2(override var category: Int) : AbstractMenu() {
     override fun displayInfo() {
         if (category == -1) {
             category = 0

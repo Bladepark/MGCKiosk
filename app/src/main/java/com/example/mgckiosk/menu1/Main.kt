@@ -3,9 +3,8 @@ package com.example.mgckiosk.menu1
 
 import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.exception.IllegalArgumentException
-import com.example.mgckiosk.`interface`.GoBackOrEnd
 
-class Main(override var category: Int) : AbstractMenu(), GoBackOrEnd {
+class Main(override var category: Int) : AbstractMenu() {
     override fun displayInfo() {
         if (category == -1) {
             category = 0

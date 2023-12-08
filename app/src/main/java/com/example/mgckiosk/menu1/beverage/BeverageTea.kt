@@ -19,12 +19,10 @@ class BeverageTea(override var category: Int) : AbstractMenu() {
             0 -> Beverage2(-1).displayInfo()
             1 -> {
                 HotTea2(0).displayInfo()
-                goBackOrEnd(this)
             }
 
             2 -> {
                 IcedTea2(0).displayInfo()
-                goBackOrEnd(this)
             }
 
             3 -> Beverage2(0).displayInfo()

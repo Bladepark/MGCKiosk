@@ -6,10 +6,9 @@ import TeaProduct
 import Tumbler
 import com.example.mgckiosk.exception.IllegalArgumentException
 import com.example.mgckiosk.abs.AbstractMenu
-import com.example.mgckiosk.`interface`.GoBackOrEnd
 
 
-class Product(override var category: Int) : AbstractMenu(), GoBackOrEnd {
+class Product(override var category: Int) : AbstractMenu() {
     override fun displayInfo() {
         if (category == -1) {
             category = 6

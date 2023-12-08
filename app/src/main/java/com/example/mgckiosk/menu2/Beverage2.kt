@@ -7,11 +7,10 @@ import com.example.mgckiosk.action.ShowBasket
 import com.example.mgckiosk.menu1.beverage.Coffee2
 import com.example.mgckiosk.menu1.beverage.BeverageTea2
 import com.example.mgckiosk.exception.IllegalArgumentException
-import com.example.mgckiosk.`interface`.GoBackOrEnd
 import com.example.mgckiosk.menu1.beverage.AdeJuice2
 import com.example.mgckiosk.menu1.beverage.SmoothieFrappe2
 
-class Beverage2(override var category: Int) : AbstractMenu(), GoBackOrEnd {
+class Beverage2(override var category: Int) : AbstractMenu() {
     override fun displayInfo() {
         if (category == -1) {
             category = 0
