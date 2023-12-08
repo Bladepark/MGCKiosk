@@ -17,7 +17,8 @@ class ShowBasket(override var category: Int) : AbstractMenu() {
             var keyList = OrderList.dataList[0].keys.toMutableList()
             for (j in 1 until keyList.size) {
                 var valueList = OrderList.dataList[0][keyList[j]]
-                println("${i}. 제품 이룸: ${keyList[j]}, 수량: ${valueList?.get(0)?.toInt()}, 이 제품 총 가격: ${valueList?.get(1)}")
+                println("${i}. 제품 이룸: ${keyList[j]}, 수량: ${valueList?.get(0)?.toInt()}, 이 제품 총 가격: ${valueList?.get(1)
+                    ?.times(1000)}원")
             }
         }
 
