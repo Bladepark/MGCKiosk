@@ -1,4 +1,4 @@
-package com.example.mgckiosk
+package com.example.mgckiosk.menu
 
 class DrinkMenu : AbstractMenu() {
     val array = arrayOf("커피","에이드&주스","티","스무디&프라페")
@@ -10,20 +10,20 @@ class DrinkMenu : AbstractMenu() {
         var choice = isValidNum(array.size)
         when (choice) {
             1 -> {
-                val drink = DrinkMenu()
-                drink.displayInfo()
+                val coffeeMenu = CoffeeMenu()
+                coffeeMenu.displayInfo()
             }
             2 -> {
-                val adeJuice = AdeJuiceMenu()
-                adeJuice.displayInfo()
+                val adeJuiceMenu = AdeJuiceMenu()
+                adeJuiceMenu.displayInfo()
             }
             3 -> {
-                val tea = TeaMenu()
-                tea.displayInfo()
+                val teaMenu = TeaMenu()
+                teaMenu.displayInfo()
             }
             4 -> {
-                val smoothieFrappe = SmoothieFrappeMenu()
-                smoothieFrappe.displayInfo()
+                val smoothieFrappeMenu = SmoothieFrappeMenu()
+                smoothieFrappeMenu.displayInfo()
             }
             0 ->{
                 back(this)

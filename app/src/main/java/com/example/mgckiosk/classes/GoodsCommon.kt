@@ -1,4 +1,4 @@
-package com.example.mgckiosk
+package com.example.mgckiosk.classes
 
 open class GoodsCommon(name:String, price:Int, explanation:String) {
 

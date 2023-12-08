@@ -1,4 +1,4 @@
-package com.example.mgckiosk
+package com.example.mgckiosk.menu
 
 class ProductMenu : AbstractMenu() {
     val mds = arrayOf(arrayOf("MGC 텀블러(웜그레이)",1500,"뛰어난 보온보냉력으로 하루종일 그대로, MGC 데일리 텀블러")

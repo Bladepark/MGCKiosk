@@ -1,4 +1,4 @@
-package com.example.mgckiosk
+package com.example.mgckiosk.menu
 
 class FoodMenu : AbstractMenu() {
     val deserts = arrayOf(

@@ -1,97 +1,34 @@
 package com.example.mgckiosk
 
+import com.example.mgckiosk.classes.AdeJuice
+import com.example.mgckiosk.classes.Coffee
+import com.example.mgckiosk.classes.Customer
+import com.example.mgckiosk.classes.Food
+import com.example.mgckiosk.classes.GoodsCommon
+import com.example.mgckiosk.classes.MenuData
+import com.example.mgckiosk.classes.Product
+import com.example.mgckiosk.classes.SmoothiFrappe
+import com.example.mgckiosk.classes.Tea
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Date
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
-import kotlin.math.ln
 
 
 // 메가 커피 키오스크 팀 과제 3조 파이팅!!
 
 
 fun main() {
-    //val menu = Menu()
-    val coffees = arrayOf(arrayOf("할메가커피",1500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("할메가커피",2500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("왕할메가커피",2500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("헤이즐넛 아메리카노",2000,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("바닐라 아메리카노",3500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("에스프레소",1000,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("젤라또 아포가토",3500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("아메리카노",2700,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("티라미수라떼",1800,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("메가리카노",1700,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("연유라떼",1900,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("카라멜마끼아또",2200,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("카페라떼",2400,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("카페모카",2300,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("카푸치노",2100,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("콜드브루라떼",3000,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("콜드브루오리지널",3200,"대충 맛과 향이 좋다는 설명")
-    )
-    val teas = arrayOf(arrayOf("녹차",1500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("사과유자차",2500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("얼그레이",2500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("캐모마일",2000,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("페퍼민트",3500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("에스프레소",1000,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("복숭아아이스티",3500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("유자차",2700,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("레몬차",1800,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("자몽차",1700,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("허니자몽블랙티",1900,"대충 맛과 향이 좋다는 설명")
-    )
-    val adeJuices = arrayOf(arrayOf("라임모히또",1500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("레몬에이드",2500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("블루레몬에이드",2500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("자몽에이드",2000,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("청포도에이드",3500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("유니콘매직에이드(핑크)",1000,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("유니콘매직에이드(블루)",3500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("체리콕",2700,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("메가에이드",2600,"대충 맛과 향이 좋다는 설명")
-    )
-    val deserts = arrayOf(arrayOf("와앙 피자 보름달빵",1500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("와앙 콘마요 보름달빵",2500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("뚱크림치즈약과쿠키",2500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("말차스모어쿠키",2000,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("마카다미아 쿠키",3500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("초콜릿칩 쿠키",1000,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("플레인크로플",3500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("아이스크림크로플",2700,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("아이스허니와앙슈",1800,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("크로크무슈",1700,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("몽쉘케이크",1900,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("햄앤치즈샌드",2200,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("치즈 케익",2400,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("초코무스 케익",2300,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("티라미수 케익",2100,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("허니브레드",3000,"대충 맛과 향이 좋다는 설명")
-    )
-    val smoothieFrappe = arrayOf(arrayOf("플레인요거트스무디",1500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("슈크림허니퐁크러쉬",2500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("망고요거트스무디",2500,"대충 맛과 향이 좋다는 설명")
-        ,arrayOf("딸기퐁크러쉬",2000,"대충 맛과 향이 좋다는 설명")
-    )
-    val mds = arrayOf(arrayOf("MGC 텀블러(웜그레이)",1500,"뛰어난 보온보냉력으로 하루종일 그대로, MGC 데일리 텀블러")
-        ,arrayOf("메가 엠지씨 스틱 디카페인 아메리카노",2500,"물의 삼투압을 이용한 독일 워터 프로세스 방식으로 카페인을 줄이고,브라질 원두 특유의 산미와 달콤함, 바디감은 고스란히 담아 조화로운 맛을 느낄 수 있는 아메리카노")
-        ,arrayOf("텀블러(실버)",2500,"기능성과 비주얼을 다잡은 메가MGC커피 텀블러.")
-        ,arrayOf("머그(블랙)",2000,"일상 어디서든 활용하기 좋은 메가MGC커피 대용량 머그컵.")
-    )
-    var orderList = ArrayList<GoodsCommon>()
-
     println("고객이 가진 돈을 입력해주세요")
     val coin = isNumber()
-    val cust = Customer(coin) //Lv.4.현재 잔액과 가격을 비교해서 구매 가능한 상태를 정의해요 (클래스 추가가능)
+    var cust = Customer(coin) //Lv.4.현재 잔액과 가격을 비교해서 구매 가능한 상태를 정의해요 (클래스 추가가능)
     val openTime = arrayOf("07:00","19:00") //Lv.5. 결제시 현재 시간을 비교하여 특정 시간대에는 결제할 수 없다는 알림창을 띄워줘요. 시작
     //var order = Order()
     //var deliveryList = order.orderList
 
     //Lv.5 주기적으로 반복하는 메소드입니다.
     val repeatWaitingCountService = Executors.newSingleThreadScheduledExecutor()
-    repeatWaitingCountService.scheduleAtFixedRate({ repeatWaitingCount() }, 5, 5, TimeUnit.SECONDS)
+    repeatWaitingCountService.scheduleAtFixedRate({ repeatWaitingCount() }, 3, 30, TimeUnit.SECONDS)
     //Lv.5 { repeatWaitingCount() }안에 반복실행할 function을 넣어줘요 끝
 
     //val deliveryService = Executors.newSingleThreadScheduledExecutor()
@@ -100,7 +37,7 @@ fun main() {
 
 
     while (true) {
-        mainView(orderList)
+        mainView(MenuData.orderList)
 
 
 //        orderList.forEach{ it->
@@ -115,8 +52,8 @@ fun main() {
             0 -> System.exit(0)
             1 -> {
                 while (cyclePoint) {
-                    for(i in coffees.indices){
-                        println("${i+1}. ${coffees[i][0]} | ${coffees[i][1]} | ${coffees[i][2]}")
+                    for(i in MenuData.coffees.indices){
+                        println("${i+1}. ${MenuData.coffees[i][0]} | ${MenuData.coffees[i][1]} | ${MenuData.coffees[i][2]}")
                     }
                     println("0.뒤로가기")
                     var choice2= isNumber()
@@ -126,7 +63,7 @@ fun main() {
                             cyclePoint=false
                             continue
                         }
-                        in 1..coffees.size -> {
+                        in 1..MenuData.coffees.size -> {
                             //추가 선택 옵션들: 카페인 시작
                             println("카페인 옵션을 선택해주세요. \n1. 고카페인,  2. 보통,  3.디카페인")
 
@@ -173,17 +110,17 @@ fun main() {
                             //추가 선택 옵션들: 핫아이스 끝
 
 
-                            orderList+=addCoffee( //추가 선택 옵션들 객체 만들기
-                                coffees[choice2-1][0].toString(),
-                                coffees[choice2-1][1].toString().toInt(),
-                                coffees[choice2-1][2].toString(),
+                            MenuData.orderList+=addCoffee( //추가 선택 옵션들 객체 만들기
+                                MenuData.coffees[choice2-1][0].toString(),
+                                MenuData.coffees[choice2-1][1].toString().toInt(),
+                                MenuData.coffees[choice2-1][2].toString(),
                                 decaff, hotIce) //<-- 추가 선택 옵션들 인자
 
                             var choice3 = isNumber()
                             var check3 =true
                             while(check3) {
                                 if (choice3 == 1) {
-                                    println("${coffees[choice2 - 1][0]}가 장바구니에 추가되었습니다.")
+                                    println("${MenuData.coffees[choice2 - 1][0]}가 장바구니에 추가되었습니다.")
                                     cyclePoint = false
                                     check3=false
                                     continue
@@ -204,8 +141,8 @@ fun main() {
             } //1
             2 -> {
                 while (cyclePoint) {
-                    for(i in teas.indices){
-                        println("${i+1}. ${teas[i][0]} | ${teas[i][1]} | ${teas[i][2]}")
+                    for(i in MenuData.teas.indices){
+                        println("${i+1}. ${MenuData.teas[i][0]} | ${MenuData.teas[i][1]} | ${MenuData.teas[i][2]}")
                     }
                     println("0.뒤로가기")
                     var choice2 = isNumber()
@@ -215,15 +152,15 @@ fun main() {
                             cyclePoint=false
                             continue
                         }
-                        in 1..teas.size -> {
-                            orderList += addTea(
-                                teas[choice2-1][0].toString(),
-                                teas[choice2-1][1].toString().toInt(),
-                                teas[choice2-1][2].toString())
+                        in 1..MenuData.teas.size -> {
+                            MenuData.orderList += addTea(
+                                MenuData.teas[choice2-1][0].toString(),
+                                MenuData.teas[choice2-1][1].toString().toInt(),
+                                MenuData.teas[choice2-1][2].toString())
                             var choice3 = readln()
                             if(choice3 =="1"){
-                                println("${ teas[choice2-1][0]}가 장바구니에 추가되었습니다.")
-                                //bucket = bucket.plus((teas[choice2.toInt()-1]))
+                                println("${ MenuData.teas[choice2-1][0]}가 장바구니에 추가되었습니다.")
+                                //bucket = bucket.plus((MenuData.teas[choice2.toInt()-1]))
                                 cyclePoint=false
                                 continue
                             } else if(choice3 == "2") { //취소
@@ -241,8 +178,8 @@ fun main() {
             }
             3 -> {
                 while (cyclePoint) {
-                    for(i in adeJuices.indices){
-                        println("${i+1}. ${adeJuices[i][0]} | ${adeJuices[i][1]} | ${adeJuices[i][2]}")
+                    for(i in MenuData.adeJuices.indices){
+                        println("${i+1}. ${MenuData.adeJuices[i][0]} | ${MenuData.adeJuices[i][1]} | ${MenuData.adeJuices[i][2]}")
                     }
                     println("0.뒤로가기")
                     var choice2= isNumber()
@@ -252,7 +189,7 @@ fun main() {
                             cyclePoint=false
                             continue
                         }
-                        in 1..adeJuices.size -> {
+                        in 1..MenuData.adeJuices.size -> {
                             //추가 선택 옵션들: 얼음 시작
                             println("얼음 옵션을 선택해주세요. \n1. 얼음 많이,  2. 얼음 적게,  3. 얼음 없음")
 
@@ -294,14 +231,14 @@ fun main() {
                                     }
                                 }
                             }//추가 선택 옵션들: 탄산 끝
-                            orderList += addAdeJuice( //추가 선택 옵션들 객체 만들기
-                                adeJuices[choice2-1][0].toString(),
-                                adeJuices[choice2-1][1].toString().toInt(),
-                                adeJuices[choice2-1][2].toString(),
+                            MenuData.orderList += addAdeJuice( //추가 선택 옵션들 객체 만들기
+                                MenuData.adeJuices[choice2-1][0].toString(),
+                                MenuData.adeJuices[choice2-1][1].toString().toInt(),
+                                MenuData.adeJuices[choice2-1][2].toString(),
                                 ice, soda) //추가 선택 옵션들 인자
                             val choice3 = isNumber()
                             if(choice3 ==1){
-                                println("${ adeJuices[choice2-1][0]}가 장바구니에 추가되었습니다.")
+                                println("${ MenuData.adeJuices[choice2-1][0]}가 장바구니에 추가되었습니다.")
                                 cyclePoint=false
                                 continue
                             } else if(choice3 == 2) { //취소
@@ -320,8 +257,8 @@ fun main() {
             }
             4-> {
                 while (cyclePoint) {
-                    for(i in smoothieFrappe.indices){
-                        println("${i+1}. ${smoothieFrappe[i][0]} | ${smoothieFrappe[i][1]} | ${smoothieFrappe[i][2]}")
+                    for(i in MenuData.smoothieFrappe.indices){
+                        println("${i+1}. ${MenuData.smoothieFrappe[i][0]} | ${MenuData.smoothieFrappe[i][1]} | ${MenuData.smoothieFrappe[i][2]}")
                     }
                     println("0.뒤로가기")
                     var choice2= isNumber()
@@ -331,7 +268,7 @@ fun main() {
                             cyclePoint=false
                             continue
                         }
-                        in 1..smoothieFrappe.size -> {
+                        in 1..MenuData.smoothieFrappe.size -> {
                             //추가 선택 옵션들: 탄산 시작
                             println("단 맛 옵션을 선택해주세요. \n1. 매우 달게,  2. 보통,  3.제로 슈가")
 
@@ -354,14 +291,14 @@ fun main() {
                                 }
                             }//추가 선택 옵션들: 탄산 끝
 
-                            orderList+= addSmoothiFrappe( //추가 선택 옵션들 객체 만들기
-                                coffees[choice2-1][0].toString(),
-                                coffees[choice2-1][1].toString().toInt(),
-                                coffees[choice2-1][2].toString(),
+                            MenuData.orderList+= addSmoothiFrappe( //추가 선택 옵션들 객체 만들기
+                                MenuData.smoothieFrappe[choice2-1][0].toString(),
+                                MenuData.smoothieFrappe[choice2-1][1].toString().toInt(),
+                                MenuData.smoothieFrappe[choice2-1][2].toString(),
                                 sugar)  //추가 선택 옵션들 인자
                             var choice3 = isNumber()
                             if(choice3 == 1){
-                                println("${ smoothieFrappe[choice2-1][0]}가 장바구니에 추가되었습니다.")
+                                println("${ MenuData.smoothieFrappe[choice2-1][0]}가 장바구니에 추가되었습니다.")
                                 cyclePoint=false
                                 continue
                             } else if(choice3 == 2) { //취소
@@ -379,8 +316,8 @@ fun main() {
             }
             5 -> {
                 while (cyclePoint) {
-                    for(i in  deserts.indices){
-                        println("${i+1}. ${deserts[i][0]} | ${ deserts[i][1]} | ${ deserts[i][2]}")
+                    for(i in  MenuData.deserts.indices){
+                        println("${i+1}. ${MenuData.deserts[i][0]} | ${ MenuData.deserts[i][1]} | ${ MenuData.deserts[i][2]}")
                     }
                     println("0.뒤로가기")
                     var choice2= isNumber()
@@ -390,7 +327,7 @@ fun main() {
                             cyclePoint=false
                             continue
                         }
-                        in 1..deserts.size -> {
+                        in 1..MenuData.deserts.size -> {
                             //추가 선택 옵션들: 식기 시작
                             println("식기도 같이 주문하시겠습니까?. \n1. 네,  2. 아니요")
 
@@ -411,14 +348,14 @@ fun main() {
                                 }
                             }//추가 선택 옵션들: 식기 끝
 
-                            orderList += addDesert( //추가 선택 옵션들: 객체 만들기
-                                deserts[choice2-1][0].toString(),
-                                deserts[choice2-1][1].toString().toInt(),
-                                deserts[choice2-1][2].toString(),
+                            MenuData.orderList += addDesert( //추가 선택 옵션들: 객체 만들기
+                                MenuData.deserts[choice2-1][0].toString(),
+                                MenuData.deserts[choice2-1][1].toString().toInt(),
+                                MenuData.deserts[choice2-1][2].toString(),
                                 tableware) //추가 선택 옵션들: 인자
                             var choice3 = isNumber()
                             if(choice3 ==1){
-                                println("${ deserts[choice2-1][0]}가 장바구니에 추가되었습니다.")
+                                println("${ MenuData.deserts[choice2-1][0]}가 장바구니에 추가되었습니다.")
                                 cyclePoint=false
                                 continue
                             } else if(choice3 == 2) { //취소
@@ -437,8 +374,8 @@ fun main() {
             } //5
             6 -> {
                 while (cyclePoint) {
-                    for(i in  mds.indices){
-                        println("${i+1}. ${mds[i][0]} | ${ mds[i][1]} | ${ mds[i][2]}")
+                    for(i in  MenuData.mds.indices){
+                        println("${i+1}. ${MenuData.mds[i][0]} | ${ MenuData.mds[i][1]} | ${ MenuData.mds[i][2]}")
                     }
                     println("0.뒤로가기")
                     var choice2= isNumber()
@@ -448,7 +385,7 @@ fun main() {
                             cyclePoint=false
                             continue
                         }
-                        in 1..mds.size -> {
+                        in 1..MenuData.mds.size -> {
                             //추가 선택 옵션들: 탄산 시작
                             println("배달서비스를 이용하시겠습니까? \n1. 아니요,  2. 점포에서 받음,  3. 집에서 받음")
 
@@ -471,14 +408,14 @@ fun main() {
                                 }
                             }//추가 선택 옵션들: 탄산 끝
 
-                            orderList += addProduct( //추가 선택 옵션들: 객체 만들기
-                                mds[choice2-1][0].toString(),
-                                mds[choice2-1][1].toString().toInt(),
-                                mds[choice2-1][2].toString(),
+                            MenuData.orderList += addProduct( //추가 선택 옵션들: 객체 만들기
+                                MenuData.mds[choice2-1][0].toString(),
+                                MenuData.mds[choice2-1][1].toString().toInt(),
+                                MenuData.mds[choice2-1][2].toString(),
                                 delivey)//추가 선택 옵션들: 인자
                             var choice3 = isNumber()
                             if(choice3 ==1){
-                                println("${ deserts[choice2-1][0]}가 장바구니에 추가되었습니다.")
+                                println("${ MenuData.mds[choice2-1][0]}가 장바구니에 추가되었습니다.")
                                 cyclePoint=false
                                 continue
                             } else if(choice3 == 2) { //취소
@@ -504,12 +441,12 @@ fun main() {
 
             }
             9 ->{
-                if(orderList.isNotEmpty()){
+                if(MenuData.orderList.isNotEmpty()){
                     println("[ 주문내역 ]")
                     //lv.6 특정 금액이상 구매시 할인될 수 있도록 구현 시작
                     var total=0
                     var msg = ""
-                    orderList.forEach{ it->
+                    MenuData.orderList.forEach{ it->
                         it.displayInfo()
                         total+=it.price
                     }
@@ -537,7 +474,7 @@ fun main() {
                             while(check){
                                 when(Option1){
                                     1 -> {
-                                        println("쿠폰번호를 입력해주세요.")
+                                        println("쿠폰번호를 입력해주세요. 넘어가려면 숫자 0 입력")
                                         check=false
                                         var couponNum = readln()
                                         var couponCheck= true
@@ -558,6 +495,7 @@ fun main() {
                                                     println("10000원 할인쿠폰이 적용되었습니다..")
                                                     couponCheck=false
                                                 }
+                                                "0" -> couponCheck=false
                                                 else ->{
                                                     println("존재하지 않는 쿠폰입니다.")
                                                     couponNum= readln()
@@ -589,14 +527,16 @@ fun main() {
                                 if(open.toInt() in openTime[0].replace(":","").toInt() .. openTime[1].replace(":","").toInt()){
                                     println("결제를 완료했습니다.(${now})")
                                     cust.money-=total
-                                    orderList.clear()
+                                    MenuData.orderList.clear()
                                     wait(3000) //Lv.5 3초간 멈추기 wait function에서 구현했습니다.
                                 } else {
                                     println("영업시간이 아니므로 결제할 수 없습니다. 영업시간: ${openTime[0]} ~ ${openTime[1]}")
+                                    wait(3000) //Lv.5 3초간 멈추기 wait function에서 구현했습니다.
                                 }
                                 //Lv.5. 결제시 현재 시간을 비교하여 특정 시간대에는 결제할 수 없다는 알림창을 띄워줘요. 끝
                             } else{
                                 println("현재 잔액은 ${cust.money} 으로 ${total-cust.money}이 부족해서 주문할 수 없습니다.")
+                                wait(3000) //Lv.5 3초간 멈추기 wait function에서 구현했습니다.
                             }
                             //Lv.4 현재 잔액과 가격을 비교해서 구매 가능한 상태를 정의해요 (클래스 추가가능) 끝
                         }
@@ -608,7 +548,7 @@ fun main() {
                 }
             } //5
             10 -> {
-                orderList.clear()
+                MenuData.orderList.clear()
             }
             else -> {
                 println("잘못된 입력입니다")
@@ -630,7 +570,7 @@ fun mainView(orderList:ArrayList<GoodsCommon>){
     println("6.상품")
     println("7.쿠폰발급")  //Lv.6 메뉴 추가
     println("8.배달 요청 목록") // Lv.7 미구현
-    if(orderList.isNotEmpty()){
+    if(MenuData.orderList.isNotEmpty()){
         println("[ 장바구니 ]")
         println("9. 주문 : 내용 확인 후 주문합니다.")
         println("10. 취소 : 진행중인 주문을 취소합니다.")
@@ -639,7 +579,7 @@ fun mainView(orderList:ArrayList<GoodsCommon>){
 
 }
 //추가 선택 옵션들: 인자를 넣어서 각각의 타입의 객체를 반환하는 function입니다. 시작
-fun addCoffee(name: String, price:Int,explanation: String,decaff:String, hotIce:String) : Coffee{
+fun addCoffee(name: String, price:Int,explanation: String,decaff:String, hotIce:String) : Coffee {
 
     var coffee= Coffee(name, price, explanation, decaff,hotIce)
 
@@ -650,7 +590,7 @@ fun addCoffee(name: String, price:Int,explanation: String,decaff:String, hotIce:
     return coffee
 }
 
-fun addAdeJuice(name: String, price:Int,explanation: String,ice:String, soda:String) :AdeJuice{
+fun addAdeJuice(name: String, price:Int,explanation: String,ice:String, soda:String) : AdeJuice {
 
     var adeJuice=  AdeJuice(name, price, explanation, ice, soda)
 
@@ -661,7 +601,7 @@ fun addAdeJuice(name: String, price:Int,explanation: String,ice:String, soda:Str
     return adeJuice
 }
 
-fun addTea(name: String, price:Int,explanation: String) : Tea{
+fun addTea(name: String, price:Int,explanation: String) : Tea {
 
     var tea= Tea(name, price, explanation)
 
@@ -672,17 +612,17 @@ fun addTea(name: String, price:Int,explanation: String) : Tea{
     return tea
 }
 //
-fun addSmoothiFrappe (name: String, price:Int,explanation: String,sugar:String) :SmoothiFrappe{
+fun addSmoothiFrappe (name: String, price:Int,explanation: String,sugar:String) : SmoothiFrappe {
 
-    var smoothieFrappe= SmoothiFrappe(name, price, explanation, sugar)
+    var smoothieFrappes= SmoothiFrappe(name, price, explanation, sugar)
 
-    println("${smoothieFrappe.name} | ${smoothieFrappe.price} | 옵션- ${smoothieFrappe.Sugar}")
+    println("${smoothieFrappes.name} | ${smoothieFrappes.price} | 옵션- ${smoothieFrappes.Sugar}")
     println("위 메뉴를 장바구니에 추가하시겠습니까?")
     println("1. 확인       2. 취소")
 
-    return smoothieFrappe
+    return smoothieFrappes
 }
-fun addDesert (name: String, price:Int,explanation: String,tableware:String) :Food{
+fun addDesert (name: String, price:Int,explanation: String,tableware:String) : Food {
 
     var desert= Food(name, price, explanation, tableware)
 
@@ -692,7 +632,7 @@ fun addDesert (name: String, price:Int,explanation: String,tableware:String) :Fo
 
     return desert
 }
-fun addProduct (name: String, price:Int,explanation: String,delivery:String) :Product{
+fun addProduct (name: String, price:Int,explanation: String,delivery:String) : Product {
 
     var product= Product(name, price, explanation, delivery)
 

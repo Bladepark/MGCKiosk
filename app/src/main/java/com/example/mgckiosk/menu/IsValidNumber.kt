@@ -1,4 +1,4 @@
-package com.example.mgckiosk
+package com.example.mgckiosk.menu
 
 interface IsValidNumber {
     fun isValidNum(size:Int):Int {

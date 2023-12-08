@@ -1,4 +1,4 @@
-package com.example.mgckiosk
+package com.example.mgckiosk.menu
 
 class SmoothieFrappeMenu : AbstractMenu() {
     val smoothieFrappe = arrayOf(arrayOf("플레인요거트스무디",1500,"대충 맛과 향이 좋다는 설명")

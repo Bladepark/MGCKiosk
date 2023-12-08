@@ -1,4 +1,4 @@
-package com.example.mgckiosk
+package com.example.mgckiosk.menu
 
 class CoffeeMenu : AbstractMenu() {
     val coffees = arrayOf(arrayOf("할메가커피",1500,"우리 할머니께서 즐겨드시던 달달한 믹스 커피 스타일로 만든 메가MGC커피만의 시원한 커피 음료")

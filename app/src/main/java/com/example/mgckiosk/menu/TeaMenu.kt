@@ -1,6 +1,6 @@
-package com.example.mgckiosk
+package com.example.mgckiosk.menu
 
-class TeaMenu :AbstractMenu() {
+class TeaMenu : AbstractMenu() {
     val teas = arrayOf(arrayOf("녹차",1500,"대충 맛과 향이 좋다는 설명")
         ,arrayOf("사과유자차",2500,"대충 맛과 향이 좋다는 설명")
         ,arrayOf("얼그레이",2500,"대충 맛과 향이 좋다는 설명")

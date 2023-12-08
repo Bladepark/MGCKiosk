@@ -1,4 +1,4 @@
-package com.example.mgckiosk
+package com.example.mgckiosk.classes
 
 class Tea(name: String,
           price: Int,

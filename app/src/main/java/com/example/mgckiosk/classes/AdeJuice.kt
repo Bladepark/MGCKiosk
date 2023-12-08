@@ -1,4 +1,4 @@
-package com.example.mgckiosk
+package com.example.mgckiosk.classes
 
 class AdeJuice (name: String,
                 price: Int,

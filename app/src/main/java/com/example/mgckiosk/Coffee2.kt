@@ -1,4 +1,7 @@
 package com.example.mgckiosk
+
+import com.example.mgckiosk.classes.GoodsCommon
+
 //이 클래스는 쓰지 않음
 class CaramelMacchiato (name: String, price: Int, explanation:String) : GoodsCommon(name, price, explanation) {
 

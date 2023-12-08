@@ -1,7 +1,7 @@
-package com.example.mgckiosk
+package com.example.mgckiosk.menu
 
 interface Back {
-    fun back(Page:AbstractMenu) {
+    fun back(Page: AbstractMenu) {
         when(Page) {
             is DrinkMenu, is FoodMenu, is ProductMenu -> {
                 val mainMenu = MainMenu()

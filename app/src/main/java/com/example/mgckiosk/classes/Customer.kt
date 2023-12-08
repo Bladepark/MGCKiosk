@@ -1,4 +1,4 @@
-package com.example.mgckiosk
+package com.example.mgckiosk.classes
 
 /*- Lv.4
 
@@ -7,9 +7,10 @@ package com.example.mgckiosk
 
 */
 
-class Customer(_money:Int) {
+class Customer() {
     var money = 0
-    init {
-        money=_money
+    constructor(_money:Int) : this() {
+        this.money=_money
     }
+
 }
