@@ -4,8 +4,84 @@
 
 package com.example.mgckiosk
 
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
+import java.util.*
+
 //랜덤 주문번호에 사용
+
+//접근 시 엔터만 허용 시스템 입력
+/*fun onlyPressEnter(){
+    val scanner = Scanner(System.`in`)
+
+    while (true) {
+        val input = scanner.nextLine()
+
+        if (input.isEmpty()) {
+            println("Enter 키가 입력되었습니다.")
+        } else {
+            println("숫자나 다른 문자는 허용되지 않음.")
+            onlyPressEnter()
+            break
+        }
+    }
+
+    scanner.close()
+}*/
+//접근 시 엔터만 허용 텍스트 입력 - 변수 초기화 하면 재사용 할 수 있을듯?
+fun onlyPressEnter(){
+    while (true) {
+        val input = readLine()
+
+        if (input.isNullOrBlank()) {
+            //Enter 키가 입력됨
+            showMeTheMoney()
+        } else {
+            //Enter외 다른 입력은 다시 돌려보냄
+            onlyPressEnter()
+            break
+        }
+    }
+}
+
+
+//소지 금액 입력
+fun showMeTheMoney() {
+    println("\n".repeat(1000)+"소지한 금액을 입력해 주세요!")
+    val poket: String? = readLine()
+
+    try {
+        val amount = poket?.toInt()
+        if (amount != null) {
+        } else {
+            println("숫자로 변환할 수 없습니다.")
+        }
+    } catch (e: NumberFormatException) {
+        println("올바른 숫자 형식이 아닙니다.\n")
+        showMeTheMoney()
+        return //돌려보내고 리턴 안하면 계속 돈다 왜징?
+    }
+    runBlocking {
+        println("\n".repeat(1000))
+        delay(500L)
+        println(".")
+        delay(800L)
+        println(".")
+        delay(800L)
+        println(".")
+        delay(800L)
+        println(".")
+        delay(1300L)
+        println("!!!")
+        delay(1300L)
+        println("\n소지한 금액을 기억했습니다~!!")
+        delay(2000L)
+        println("\n".repeat(1000))
+    }
+    printMenu()
+    selectMenu()
+}
 
 //사용불가 기능 묶음
 fun accessDenied() {
@@ -29,16 +105,16 @@ fun selectMenu() {
     when (selectMenu) {
         "1" -> {
             if (coffeeList.isNotEmpty()) {
-                println("\n커피를 선택하셨습니다.")
+                //println("\n".repeat(1000)+"커피를 선택하셨습니다.")
                 selectCoffeeMenu()
                 coffeeMenu()
             }else{
-                println("지금은 커피 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
+                println("\n".repeat(1000)+"지금은 커피 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
                 accessDenied()
             }
         }
         "11" -> {
-            println("\nAdmin: View all coffee list\n")
+            println("\n".repeat(1000)+"Admin: View all coffee list\n")
             if (coffeeList.isNotEmpty()){
                 coffeeList.forEachIndexed {index, item ->
                     println("${index + 1}. ${item.name} - ${item.price}원, 소요 시간: ${item.time}분")
@@ -50,16 +126,16 @@ fun selectMenu() {
         }
         "2" -> {
             if (teaList.isNotEmpty()) {
-                println("\n티를 선택하셨습니다.")
+                println("\n".repeat(1000)+"티를 선택하셨습니다.")
                 selectTeaMenu()
                 teaMenu()
             }else{
-                println("지금은 티 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
+                println("\n".repeat(1000)+"지금은 티 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
                 accessDenied()
             }
         }
         "22" -> {
-            println("\nAdmin: View all Tea list\n")
+            println("\n".repeat(1000)+"Admin: View all Tea list\n")
             if (teaList.isNotEmpty()){
                 teaList.forEachIndexed {index, item ->
                     println("${index + 1}. ${item.name} - ${item.price}원, 소요 시간: ${item.time}분")
@@ -71,16 +147,16 @@ fun selectMenu() {
         }
         "3" -> {
             if (adeJuiceList.isNotEmpty()) {
-                println("\n에이드/쥬스를 선택하셨습니다.")
+                println("\n".repeat(1000)+"에이드/쥬스를 선택하셨습니다.")
                 selectAdeJuiceMenu()
                 adeJuiceMenu()
             }else{
-                println("지금은 에이드/쥬스 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
+                println("\n".repeat(1000)+"지금은 에이드/쥬스 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
                 accessDenied()
             }
         }
         "33" -> {
-            println("\nAdmin: View all Ade/Juice list\n")
+            println("\n".repeat(1000)+"Admin: View all Ade/Juice list\n")
             if (adeJuiceList.isNotEmpty()){
                 adeJuiceList.forEachIndexed {index, item ->
                     println("${index + 1}. ${item.name} - ${item.price}원, 소요 시간: ${item.time}분")
@@ -92,16 +168,16 @@ fun selectMenu() {
         }
         "4" -> {
             if (dessertList.isNotEmpty()) {
-                println("\n디저트를 선택하셨습니다.")
+                println("\n".repeat(1000)+"디저트를 선택하셨습니다.")
                 selectDessertMenu()
                 dessertMenu()
             }else{
-                println("지금은 디저트 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
+                println("\n".repeat(1000)+"지금은 디저트 상품을 이용하실 수 없습니다.\n이용에 불편을 드려 죄송합니다.")
                 accessDenied()
             }
         }
         "44" -> {
-            println("\nAdmin: View all Dessert list\n")
+            println("\n".repeat(1000)+"Admin: View all Dessert list\n")
             if (dessertList.isNotEmpty()){
                 dessertList.forEachIndexed {index, item ->
                     println("${index + 1}. ${item.name} - ${item.price}원, 소요 시간: ${item.time}분")
@@ -113,7 +189,7 @@ fun selectMenu() {
         }
         "0" -> jangBaGuNiOrder()
         else -> {
-            println("❗️유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+            println("\n".repeat(1000)+"❗️유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
             printMenu()
             selectMenu()
         }
@@ -130,7 +206,7 @@ fun coffeeMenu() {
         when (selectCoffee?.toIntOrNull()) {
             in 1..coffeeList.size -> {
                 val selectedCoffee = coffeeList[selectCoffee!!.toInt() - 1]
-                println("${selectedCoffee.name}를 선택하셨습니다. ${selectedCoffee.price}원 이고 ${selectedCoffee.time}분 정도 소요됩니다.")
+                println("\n".repeat(1000)+"${selectedCoffee.name}를 선택하셨습니다. ${selectedCoffee.price}원 이고 ${selectedCoffee.time}분 정도 소요됩니다.")
 
                 val addList = AllMegaMenu(selectedCoffee.name,selectedCoffee.price,selectedCoffee.time,selectedCoffee.termo)
                 jangBaGuNiList.add(addList)
@@ -139,11 +215,12 @@ fun coffeeMenu() {
                 coffeeMenu()
             }
             0 -> {
+                println("\n".repeat(1000))
                 printMenu()
                 selectMenu()
             }
             else -> {
-                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                println("\n".repeat(1000)+"❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
                 selectCoffeeMenu()
                 coffeeMenu()
             }
@@ -161,7 +238,7 @@ fun teaMenu() {
         when (selectTea?.toIntOrNull()) {
             in 1..teaList.size -> {
                 val selectedTea = teaList[selectTea!!.toInt() - 1]
-                println("${selectedTea.name}를 선택하셨습니다. ${selectedTea.price}원 이고 ${selectedTea.time}분 정도 소요됩니다.")
+                println("\n".repeat(1000)+"${selectedTea.name}를 선택하셨습니다. ${selectedTea.price}원 이고 ${selectedTea.time}분 정도 소요됩니다.")
 
                 val addList = AllMegaMenu(selectedTea.name,selectedTea.price,selectedTea.time,selectedTea.termo)
                 jangBaGuNiList.add(addList)
@@ -170,11 +247,12 @@ fun teaMenu() {
                 teaMenu()
             }
             0 -> {
+                println("\n".repeat(1000))
                 printMenu()
                 selectMenu()
             }
             else -> {
-                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                println("\n".repeat(1000)+"❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
                 selectTeaMenu()
                 teaMenu()
             }
@@ -192,7 +270,7 @@ fun adeJuiceMenu() {
         when (selectAdeJuice?.toIntOrNull()) {
             in 1..adeJuiceList.size -> {
                 val selectedAdeJuice = adeJuiceList[selectAdeJuice!!.toInt() - 1]
-                println("${selectedAdeJuice.name}를 선택하셨습니다. ${selectedAdeJuice.price}원 이고 ${selectedAdeJuice.time}분 정도 소요됩니다.")
+                println("\n".repeat(1000)+"${selectedAdeJuice.name}를 선택하셨습니다. ${selectedAdeJuice.price}원 이고 ${selectedAdeJuice.time}분 정도 소요됩니다.")
 
                 val addList = AllMegaMenu(selectedAdeJuice.name,selectedAdeJuice.price,selectedAdeJuice.time,selectedAdeJuice.termo)
                 jangBaGuNiList.add(addList)
@@ -201,11 +279,12 @@ fun adeJuiceMenu() {
                 adeJuiceMenu()
             }
             0 -> {
+                println("\n".repeat(1000))
                 printMenu()
                 selectMenu()
             }
             else -> {
-                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                println("\n".repeat(1000)+"❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
                 selectAdeJuiceMenu()
                 adeJuiceMenu()
             }
@@ -223,7 +302,7 @@ fun dessertMenu() {
         when (selectDessert?.toIntOrNull()) {
             in 1..dessertList.size -> {
                 val selectedDessert = dessertList[selectDessert!!.toInt() - 1]
-                println("${selectedDessert.name}를 선택하셨습니다. ${selectedDessert.price}원 이고 ${selectedDessert.time}분 정도 소요됩니다.")
+                println("\n".repeat(1000)+"${selectedDessert.name}를 선택하셨습니다. ${selectedDessert.price}원 이고 ${selectedDessert.time}분 정도 소요됩니다.")
 
                 val addList = AllMegaMenu(selectedDessert.name,selectedDessert.price,selectedDessert.time,selectedDessert.termo)
                 jangBaGuNiList.add(addList)
@@ -232,11 +311,12 @@ fun dessertMenu() {
                 dessertMenu()
             }
             0 -> {
+                println("\n".repeat(1000))
                 printMenu()
                 selectMenu()
             }
             else -> {
-                println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+                println("\n".repeat(1000)+"❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
                 selectDessertMenu()
                 dessertMenu()
             }
@@ -248,7 +328,7 @@ fun dessertMenu() {
 
 //장바구니 add/remove
 fun jangBaGuNiOrder(){
-    println("\n[     장 바 구 니     ]\n")
+    println("\n".repeat(1000)+"\n[     장 바 구 니     ]\n")
     if (jangBaGuNiList.isNotEmpty()){
         var finalPrice = 0
         jangBaGuNiList.forEachIndexed {index, item ->
@@ -274,7 +354,8 @@ fun jangBaGuNiOrder(){
         }
         1 -> {
             println("주문번호 ${randomNumber}번 입니다. 잠시만 기다려 주세요~")
-            return
+            System.exit(0)
+            //인터넷에서 코들린 펑션 종료하기 긁어옴
         }
         2 -> jangBaGuNiRemove()
         else -> {
@@ -286,7 +367,7 @@ fun jangBaGuNiOrder(){
 fun jangBaGuNiRemove(){
     val jangList = jangBaGuNiList
 
-    println("\n[     장 바 구 니     ]\n")
+    println("\n".repeat(1000)+"\n[     장 바 구 니     ]\n")
     if (jangBaGuNiList.isNotEmpty()){
         var finalPrice = 0
         jangBaGuNiList.forEachIndexed {index, item ->
@@ -318,7 +399,7 @@ fun jangBaGuNiRemove(){
             jangBaGuNiRemove()
         }
         else ->{
-            println("❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
+            println("\n".repeat(1000)+"❗유효하지 않은 입력입니다. 다시 시도해 주세요 ^.^\n")
             jangBaGuNiRemove()
         }
     }

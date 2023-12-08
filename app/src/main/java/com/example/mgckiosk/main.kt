@@ -8,8 +8,8 @@ package com.example.mgckiosk
 
 fun main(){
     wellcomeMenu()
-    printMenu()
-    selectMenu()
+    onlyPressEnter()
+
 }
 
 

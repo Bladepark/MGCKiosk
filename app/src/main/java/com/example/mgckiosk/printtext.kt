@@ -4,6 +4,7 @@
 
 package com.example.mgckiosk
 
+
 //Wellcome 화면 안내 텍스트
 fun wellcomeMenu() {
     println(
@@ -19,12 +20,19 @@ fun wellcomeMenu() {
                 "|_|_|_||_____||_____||__|__|  |_____||_____||__|   |__|   |_____||_____|       \n" +
                 "                                                                               \n"
     )
-    print("                        Press 'Enter' to Start\n" +
-            "                      시작하시려면 'Enter'키를 누르세요\n\n")
+    print(
+        "                        Press 'Enter' to Start\n" +
+                "                      시작하시려면 'Enter'키를 누르세요\n\n"
+    )
     // 키 입력 대기(enter = 바로시작, 키 입력 enter = 시작)
     // 다음 코드에서는 키 입력으로 바로 시작할 수 있도록 해보자 (ex: r 입력 = 바로시작)
-    System.`in`.read()
+    //System.`in`.read()
 }
+
+
+
+
+
 //메인 메뉴판 화면 안내 텍스트
 fun printMenu() {
     println(
@@ -43,9 +51,7 @@ fun printMenu() {
 //메뉴별 항목 안내 텍스트
 fun selectCoffeeMenu() {
     println(
-        "아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n" +
-                "\n" +
-                "[ 1. Coffee menu ]\n" +
+        "\n".repeat(1000)+"[ 1. Coffee menu ]\n" +
                 " \n" +
                 "1.  에스프레소ㅤㅤㅤ| 메가MGC커피 원두의 향미를 온전히 즐길 수 있는 에스프레소\n" +
                 "2.  아메리카노ㅤㅤㅤ| 메가MGC커피 블렌드 원두로 추출한 에스프레소에 물을 더해, 풍부한 바디감을 느낄 수 있는 스탠다드 커피\n" +
@@ -57,9 +63,7 @@ fun selectCoffeeMenu() {
 }
 fun selectTeaMenu() {
     println(
-        "아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n" +
-                "\n" +
-                "[ 1. Coffee menu ]\n" +
+        "\n".repeat(1000)+"[ 2. Tea menu ]\n" +
                 " \n" +
                 "1.  녹차ㅤㅤㅤㅤㅤㅤ| 고소한 감칠맛과 부드러운 목넘김으로 산뜻하게 마음을 위로하는 국내산 녹차\n" +
                 "2.  얼그레이ㅤㅤㅤㅤ| 차 특유의 풍부한 플레이버를 만끽할 수 있는 허브티\n" +
@@ -71,9 +75,7 @@ fun selectTeaMenu() {
 }
 fun selectAdeJuiceMenu() {
     println(
-        "아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n" +
-                "\n" +
-                "[ 1. Coffee menu ]\n" +
+        "\n".repeat(1000)+"[ 3. Ade/Juice menu ]\n" +
                 " \n" +
                 "1.  메가에이드ㅤㅤㅤ| 상큼한 레몬, 상쾌한 라임, 달콤쌉싸름한 자몽의 3색 맛을 한데 어우른 메가MGC커피 시그니처 에이드\n" +
                 "2.  블루레몬에이드ㅤ| 레몬에이드의 상큼한 청량감에 블루큐라소의 진한 향미를 더한 에이드\n" +
@@ -87,9 +89,7 @@ fun selectAdeJuiceMenu() {
 }
 fun selectDessertMenu() {
     println(
-        "아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n" +
-                "\n" +
-                "[ 1. Coffee menu ]\n" +
+        "\n".repeat(1000)+"[ 4. Dessert menu ]\n" +
                 " \n" +
                 "1.  디저트냠냠ㅤㅤㅤ| 디저트는 역시 냠냠이지\n" +
                 "2.  디저트쨥쨥ㅤㅤㅤ| 뭘 모르네 디저트는 쨥쨥이 원탑인데?\n" +
