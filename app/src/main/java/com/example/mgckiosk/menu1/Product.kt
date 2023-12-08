@@ -1,16 +1,13 @@
 package com.example.mgckiosk.menu1
 
+import MugCup
+import StickCoffee
+import TeaProduct
+import Tumbler
 import com.example.mgckiosk.exception.IllegalArgumentException
 import com.example.mgckiosk.abs.AbstractMenu
 import com.example.mgckiosk.`interface`.GoBackOrEnd
-import com.example.mgckiosk.menu1.product.MugCup
-import com.example.mgckiosk.menu1.product.MugCup1
-import com.example.mgckiosk.menu1.product.StickCoffee
-import com.example.mgckiosk.menu1.product.StickCoffee2
-import com.example.mgckiosk.menu1.product.TeaProduct
-import com.example.mgckiosk.menu1.product.TeaProduct2
-import com.example.mgckiosk.menu1.product.Tumbler
-import com.example.mgckiosk.menu1.product.Tumbler2
+
 
 class Product(override var category: Int) : AbstractMenu(), GoBackOrEnd {
     override fun displayInfo() {

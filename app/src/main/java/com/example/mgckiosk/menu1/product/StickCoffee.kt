@@ -1,6 +1,5 @@
-package com.example.mgckiosk.menu1.product
-
 import com.example.mgckiosk.abs.AbstractMenu
+
 import com.example.mgckiosk.action.NumberOfItems
 import com.example.mgckiosk.exception.IllegalArgumentException
 

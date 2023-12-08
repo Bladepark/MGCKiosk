@@ -17,8 +17,14 @@ class ProceedToCheckOut {
             totalPrice += subDataList.get(i).get(1)
         }
 
-        if (totalPrice > balance) {
-            println("현재 잔액은 ${(balance * 1000).toInt()}원 으로 ${(totalPrice - balance) * 1000.toInt()}원이 부족해서 주문할 수 없습니다.")
+        if (totalPrice*1000 > balance) {
+            println("현재 잔액은 ${(balance).toInt()}원 으로 ${(totalPrice*1000 - balance).toInt()}원이 부족해서 주문할 수 없습니다.")
+            println("1. 뒤로가기 0. 종료")
+            var num = IllegalArgumentException(0).selectNumber()
+            when (num) {
+                0 -> println("프로그램을 종료합니다.")
+            }
+
         } else {
             println("결제 하시겠습니까?")
             println("1. 네 2. 뒤로가기 3. 주문 취소 0. 종료")
